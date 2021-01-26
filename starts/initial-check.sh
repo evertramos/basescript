@@ -33,8 +33,6 @@ initial_check()
     
     LOCAL_PID_FILE=${1:-$PID_FILE}
 
-#  [[ $LOCAL_ == "" ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
-    
     # Check if docker is installed
     run_function checkdocker
 
@@ -44,4 +42,3 @@ initial_check()
     # Check if you are already running an instance of this Script
     run_function check_running_script $LOCAL_PID_FILE
 }
-
