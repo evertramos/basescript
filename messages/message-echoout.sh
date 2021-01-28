@@ -29,8 +29,8 @@
 #
 # ----------------------------------------------------------------------
 
-# Script to show output messages
-echoerr() 
+# Error message
+echoerr()
 {
   local LOCAL_STOP_EXECUTION_ON_ERROR
 
@@ -40,19 +40,17 @@ echoerr()
   if [[ "$SILENT" == true ]]; then
     echo $1
   else
-    echo "${red}>>> ------------------------------------------------------------------${reset}"
-    echo "${red}>>>${reset}"
-    echo "${red}>>>[ERROR] $1${reset}" 1>&2; 
-#    echo "${red}>>>[ERROR] $@${reset}" 1>&2; 
-    echo "${red}>>>${reset}"
-    echo "${red}>>> ------------------------------------------------------------------${reset}"
+    echo "${red}[ERROR]---------------------------------------------------------------${reset}"
+    printf "${red}${1//\\n/\\n}${reset}" 1>&2;
+    echo
+    echo "${red}----------------------------------------------------------------------${reset}"
     echo 
   fi
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
 
-# Echo attention
+# Warning message
 echowarning() 
 {
   local LOCAL_STOP_EXECUTION_ON_ERROR
@@ -61,19 +59,17 @@ echowarning()
 
   # Check $SILENT mode
   if [[ "$SILENT" != true ]]; then
-    echo "${yellow}>>> ------------------------------------------------------------------${reset}"
-    echo "${yellow}>>>${reset}"
-    echo "${yellow}>>>[WARNING] $1${reset}" 1>&2; 
-#    echo "${yellow}>>>[WARNING] $@${reset}" 1>&2; 
-    echo "${yellow}>>>${reset}"
-    echo "${yellow}>>> ------------------------------------------------------------------${reset}"
+    echo "${yellow}[WARNING]-------------------------------------------------------------${reset}"
+    printf "${yellow}${1//\\n/\\n}${reset}" 1>&2;
+    echo
+    echo "${yellow}----------------------------------------------------------------------${reset}"
     echo 
   fi
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
 
-# Echo success
+# Success message
 echosuccess() 
 {
   local LOCAL_STOP_EXECUTION_ON_ERROR
@@ -82,19 +78,17 @@ echosuccess()
 
   # Check $SILENT mode
   if [[ "$SILENT" != true ]]; then
-    echo "${green}>>> ------------------------------------------------------------------${reset}"
-    echo "${green}>>>${reset}"
-    echo "${green}>>>[SUCCESS] $1${reset}" 1>&2; 
-#    echo "${green}>>>[SUCCESS] $@${reset}" 1>&2; 
-    echo "${green}>>>${reset}"
-    echo "${green}>>> ------------------------------------------------------------------${reset}"
+    echo "${green}[SUCCESS]-------------------------------------------------------------${reset}"
+    printf "${green}${1//\\n/\\n}${reset}" 1>&2;
+    echo
+    echo "${green}----------------------------------------------------------------------${reset}"
     echo 
   fi
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
 
-# Echo regular line
+# Regular line message
 echoline() 
 {
   local LOCAL_STOP_EXECUTION_ON_ERROR
@@ -103,12 +97,12 @@ echoline()
 
   # Check $SILENT mode
   if [[ "$SILENT" != true ]]; then
-    echo ">>> ------------------------------------------------------------------"
-    echo ">>> $1" 1>&2; 
-    echo ">>> ------------------------------------------------------------------"
+    echo "----------------------------------------------------------------------"
+    printf " ${1//\\n/\\n}" 1>&2;
+    echo
+    echo "----------------------------------------------------------------------"
     echo 
   fi
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
-
