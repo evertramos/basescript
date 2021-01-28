@@ -31,6 +31,8 @@
 
 run_function() {
 
+    [[ $1 == "" ]] && echoerr "You must inform an argument to the function '${FUNCNAME[0]}', \nplease check the docs."
+
     # Check $SILENT mode
     if [[ "$SILENT" == true ]]; then
         if [[ ! -z $5 ]]; then
