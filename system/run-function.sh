@@ -1,6 +1,6 @@
 #-----------------------------------------------------------------------
 #
-# Basescript functions
+# Basescript function
 #
 # The basescript functions were designed to work as abstract function,
 # so it could be used in many different contexts executing specific job
