@@ -51,4 +51,3 @@ docker_compose_stop()
         ERROR_DOCKER_COMPOSE_START=true
     fi
 }
-
