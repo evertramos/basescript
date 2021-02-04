@@ -25,9 +25,9 @@
 #
 # You must inform the parameters below:
 # 1. Path where the compose file are located (/path/docker-compose.yml)
-# 2. [optional] docker-compose file name (default: docker-compose.yml)
-# 4. [optional] .env file name (default: .env)
-# 5. [optional] .env file location (default: same location in arg. 1)
+# 2. [optional] (default: docker-compose.yml) docker-compose file name
+# 3. [optional] (default: .env) .env file name
+# 4. [optional] (default: same location in arg. 1) .env file location
 #
 #-----------------------------------------------------------------------
 
