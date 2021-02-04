@@ -37,6 +37,8 @@ check_folder_exists()
     
     LOCAL_ECHOOUT=${2:-false}
 
+    [[ $LOCAL_FOLDER == "" || $LOCAL_FOLDER == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+
     [[ "$DEBUG" == true ]] && echo "Checking if folder '$LOCAL_FOLDER' exists."
 
     [[ "$LOCAL_ECHOOUT" == true ]] && [[ ! -d "$LOCAL_FOLDER" ]] && echoerr "Folder '$LOCAL_FOLDER' does not exist"
