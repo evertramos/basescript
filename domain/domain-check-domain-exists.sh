@@ -45,7 +45,7 @@ domain_check_domain_exists()
 
     if [[ $LOCAL_DNS_PROVIDER == "digitalocean" ]]; then
         # Digital Ocean ready
-        # @todo improve for an abstract function - add CloudFlare and AWS
+        # @todo Add support for CloudFlare and AWS
         RESPONSE="$(curl -X GET -H "Authorization: Bearer $API_KEY" -H "Content-Type: application/json" \
             "https://api.digitalocean.com/v2/domains/$LOCAL_DOMAIN" | jq 'select(.domain != null) | .domain.name')"
     else
