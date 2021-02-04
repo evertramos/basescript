@@ -38,7 +38,7 @@ domain_create_domain_dns()
     local LOCAL_DOMAIN LOCAL_DNS_PROVIDER LOCAL_ERROR LOCAL_STOP_EXECUTION_ON_ERROR
     
     LOCAL_DOMAIN=${1:-$DOMAIN}
-    LOCAL_DNS_PROVIDER=${2:-'digitalocean'}
+    LOCAL_DNS_PROVIDER=${2:-"digitalocean"}
     LOCAL_STOP_EXECUTION_ON_ERROR=${3:-false}
 
     [[ "$DEBUG" == true ]] && echo "Creating a DNS record for "$LOCAL_DOMAIN

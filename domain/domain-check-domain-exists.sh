@@ -37,7 +37,7 @@ domain_check_domain_exists()
     local LOCAL_DOMAIN LOCAL_DNS_PROVIDER
     
     LOCAL_DOMAIN=${1:-$DOMAIN}
-    LOCAL_DNS_PROVIDER=${2:-'digitalocean'}
+    LOCAL_DNS_PROVIDER=${2:-"digitalocean"}
 
     [[ $LOCAL_DOMAIN == "" || $LOCAL_DOMAIN == null ]] && echoerr "You must inform the domain name to the function: '${FUNCNAME[0]}'"
 
