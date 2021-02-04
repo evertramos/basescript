@@ -49,7 +49,7 @@ domain_check_domain_exists()
         RESPONSE="$(curl -X GET -H "Authorization: Bearer $API_KEY" -H "Content-Type: application/json" \
             "https://api.digitalocean.com/v2/domains/$LOCAL_DOMAIN" | jq 'select(.domain != null) | .domain.name')"
     else
-      echoerr "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
+        echoerr "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
     fi
 
     [[ "$DEBUG" == true ]] && echo "RESPONSE: "${RESPONSE:-Not found!}
