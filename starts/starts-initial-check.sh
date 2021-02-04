@@ -27,7 +27,7 @@
 # 1. [optional] Pid file name (default: )
 #
 # ----------------------------------------------------------------------
-initial_check()
+starts_initial_check()
 {
     local LOCAL_PID_FILE
     
