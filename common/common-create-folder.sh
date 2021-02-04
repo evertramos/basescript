@@ -29,13 +29,13 @@
 #
 #-----------------------------------------------------------------------
 
-create_folder()
+common_create_folder()
 {
     local LOCAL_FOLDER 
 
     LOCAL_FOLDER=${1}
-    
-    [[ $LOCAL_FOLDER == "" ]] && echoerr "Please add an argument to the funcion '${FUNCNAME[0]}'."
+
+    [[ $LOCAL_FOLDER == "" ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Creating folder '$LOCAL_FOLDER'"
 
