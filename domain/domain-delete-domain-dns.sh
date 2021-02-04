@@ -46,7 +46,7 @@ domain_delete_domain_dns()
         LOCAL_DOMAIN=${LOCAL_DOMAINS[i]%/}
 
         if [[ "$LOCAL_DELETE_IF_RUNNING" != true ]]; then
-            run_function proxy_check_domain_active $LOCAL_DOMAIN
+            run_function proxy_check_url_active $LOCAL_DOMAIN
             
             if [[ "$DOMAIN_ACTIVE_IN_PROXY" == true ]]; then
                 echoerr "The domain '$LOCAL_DOMAIN' is active in the proxy. Domain not deleted from the DNS."
