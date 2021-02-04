@@ -29,7 +29,7 @@
 #
 #-----------------------------------------------------------------------
 
-docker_check_single_container_exists()
+docker_check_container_is_running()
 {
     local LOCAL_CONTAINER_NAME LOCAL_RESULT
     
