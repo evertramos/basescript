@@ -21,7 +21,7 @@
 
 #-----------------------------------------------------------------------
 # This script has one main objective:
-# 1. Load all functions in ./basescript folder
+# 1. Load all functions in local folder and subfolders
 #
 #-----------------------------------------------------------------------
 
