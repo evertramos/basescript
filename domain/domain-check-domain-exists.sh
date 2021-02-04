@@ -32,7 +32,7 @@
 #
 #-----------------------------------------------------------------------
 
-check_domain_exists()
+domain_check_domain_exists()
 {
     local LOCAL_DOMAIN LOCAL_PROVIDER
     
