@@ -27,15 +27,20 @@
 # 1. Domain name(s) (domain.com) - You can inform an array of domains
 # 2. [optional] (default: false) Delete even it the domain is running
 # in the server proxy
+# 3. [optional] (default: 'digitalocean') The DNS Service you use
+#
+# Available DNS Service Providers:
+#   - Digital Ocean
 #
 #-----------------------------------------------------------------------
 
 domain_delete_domain_dns()
 {
-    local LOCAL_DOMAINS LOCAL_DELETE_IF_RUNNING
+    local LOCAL_DOMAINS LOCAL_DELETE_IF_RUNNING LOCAL_DNS_PROVIDER
     
     LOCAL_DOMAINS=($(echo ${1} | tr "," "\n") )
     LOCAL_DELETE_IF_RUNNING=${2:-false}
+    LOCAL_DNS_PROVIDER=${3:-"digitalocean"}
 
     [[ $LOCAL_DOMAINS == "" ]] && echoerr "You need to inform a argunment for the function '${FUNCNAME[0]}'"
     [[ $API_KEY == "" ]] && echoerr "You need an API KEY to use this function ('${FUNCNAME[0]}')"
@@ -56,11 +61,17 @@ domain_delete_domain_dns()
     
         [[ "$DEBUG" == true ]] && echowarning "Deleting the DNS record for "$LOCAL_DOMAIN
 
-        curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer $API_KEY" \
-            "https://api.digitalocean.com/v2/domains/"$LOCAL_DOMAIN
+        if [[ $LOCAL_DNS_PROVIDER == "digitalocean" ]]; then
+            # Digital Ocean ready
+            # @todo Add support for CloudFlare and AWS
+            curl -X DELETE -H "Content-Type: application/json" -H "Authorization: Bearer $API_KEY" \
+                "https://api.digitalocean.com/v2/domains/"$LOCAL_DOMAIN
 
-        RESPONSE="$(curl -X GET -H "Authorization: Bearer $API_KEY" -H "Content-Type: application/json" \
-            "https://api.digitalocean.com/v2/domains/$LOCAL_DOMAIN" | jq 'select(.domain != null) | .domain.name')"
+            RESPONSE="$(curl -X GET -H "Authorization: Bearer $API_KEY" -H "Content-Type: application/json" \
+                "https://api.digitalocean.com/v2/domains/$LOCAL_DOMAIN" | jq 'select(.domain != null) | .domain.name')"
+        else
+            echoerr "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
+        fi
 
         [[ "$DEBUG" == true ]] && echosuccess "RESPONSE: "$RESPONSE
     done
