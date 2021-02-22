@@ -40,4 +40,3 @@ cyan=`tput setaf 6`
 white=`tput setaf 7`
 
 reset=`tput sgr0`
-
