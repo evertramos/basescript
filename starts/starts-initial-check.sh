@@ -21,7 +21,7 @@
 
 # ----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Check initial setup 
+# 1. Check initial setup
 #
 # You must inform the parameters below:
 # 1. [optional] (default: ) Pid file name
@@ -32,7 +32,7 @@
 starts_initial_check()
 {
     local LOCAL_PID_FILE LOCAL_SKIP_BASE_ENV_FILE
-    
+
     LOCAL_PID_FILE=${1:-$PID_FILE}
     LOCAL_SKIP_BASE_ENV_FILE=${2:-false}
 
