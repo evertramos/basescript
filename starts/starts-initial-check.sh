@@ -13,7 +13,7 @@
 #
 #-----------------------------------------------------------------------
 #
-# Be carefull when editing this file, it is part of a bigger scripts!
+# Be careful when editing this file, it is part of a bigger scripts!
 #
 # Basescript - https://github.com/evertramos/basescript
 #
