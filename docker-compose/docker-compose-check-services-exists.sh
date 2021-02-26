@@ -37,14 +37,15 @@ docker_compose_check_service_exists()
     local LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME LOCAL_RESULTS LOCAL_QTY_SERVICES
     
     LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME=${1:-null}
-    LOCAL_QTY_SERVICES=${2:-0}
+    LOCAL_DOCKER_COMPOSE_FILE_NAME=${2:-"docker-compose.yml"}
+    LOCAL_QTY_SERVICES=${3:-0}
 
     [[ $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME == "" || $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME == null ]] && \
     echoerr "You must inform the docker-compose full file path to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" == true ]] && echo "Checking if docker-compose services exists for: '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME'"
+    [[ "$DEBUG" == true ]] && echo "Checking if docker-compose services exists for: '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME/$LOCAL_DOCKER_COMPOSE_FILE_NAME'"
 
-    LOCAL_RESULTS=$(docker-compose --file $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME ps --quiet | wc -l)
+    LOCAL_RESULTS=$(docker-compose --file "$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME/$LOCAL_DOCKER_COMPOSE_FILE_NAME" ps --quiet | wc -l)
 
     # Check results
     if [[ $LOCAL_RESULTS > $LOCAL_QTY_SERVICES ]]; then
