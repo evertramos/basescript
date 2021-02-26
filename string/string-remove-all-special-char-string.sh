@@ -25,21 +25,22 @@
 #
 # You must/might inform the parameters below:
 # 1. The string which will be removed the special chars
-# 2. [optional] (default: ) n/a
+# 2. [optional] (default: '-') Character to be ignored by the function
 #
 #-----------------------------------------------------------------------
 
-remove_all_special_char_string()
+string_remove_all_special_char_string()
 {
-    local LOCAL_STRING
+    local LOCAL_STRING LOCAL_KEEP_SPECIAL_CHAR
     
     LOCAL_STRING=${1:-null}
+    LOCAL_KEEP_SPECIAL_CHAR=${2:--}
 
     [[ $LOCAL_STRING == "" || $LOCAL_STRING == null ]] && echoerr "You must inform an argument to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Removing special characters from '$LOCAL_STRING'"
 
-    REMOVE_ALL_SPECIAL_CHAR_STRING_RESPONSE=$(echo $LOCAL_STRING | tr -d ' ./' | tr -dc '[:alnum:].' | tr '[:upper:]' '[:lower:]' | tr -d '[:cntrl:]')
+    STRING_REMOVE_ALL_SPECIAL_CHAR_STRING_RESPONSE=$(echo $LOCAL_STRING | tr -d ' ./' | tr -dc "[:alnum:]$LOCAL_KEEP_SPECIAL_CHAR" | tr '[:upper:]' '[:lower:]' | tr -d '[:cntrl:]')
 
     return 0
 }
