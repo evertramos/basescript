@@ -24,7 +24,7 @@
 # 1. Check if a single container is running in local docker
 #
 # You must/might inform the parameters below:
-# 1. Cotnainer name
+# 1. Container name which should be check if it is running
 # 2. [optional] (default: ) n/a
 #
 #-----------------------------------------------------------------------
@@ -37,14 +37,14 @@ docker_check_container_is_running()
 
     [[ $LOCAL_CONTAINER_NAME == ""  || $LOCAL_CONTAINER_NAME == null ]] && echoerr "You must inform the container name to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" == true ]] && echo "Checking if the container '$LOCAL_CONTAINER_NAME' exist in this server."
+    [[ "$DEBUG" == true ]] && echo "Checking if the container '$LOCAL_CONTAINER_NAME' is running in this server."
 
-    LOCAL_RESULTS=$(docker ps --quiet --filter name=$LOCAL_CONTAINER_NAME | wc -l)
+    LOCAL_RESULTS=$(docker ps --filter name=$LOCAL_CONTAINER_NAME --filter status=running --format "table {{.Status}}" | grep "Up" | wc -l)
 
     # Check results
     if [[ $LOCAL_RESULTS > 0 ]]; then
-        CONTAINER_EXISTS=true
+        DOCKER_CONTAINER_IS_RUNNING=true
     else 
-        CONTAINER_EXISTS=false
+        DOCKER_CONTAINER_IS_RUNNING=false
     fi
 }
