@@ -21,6 +21,22 @@ We designed a standard way for naming functions, which should start the function
 is under the './domain' folder the function will start with 'domain_'. We try to be as much verbose as possible for better
 understanding "the function function".
 
+## Response
+
+The response from the functions will follow the function name which was called, for the 'check' 
+functions the 'check' string will be removed in the reply, this way we can have a standard and 
+the user will know the exact response from the function without a need to open and review it:
+
+```bash
+docker_check_container_is_running()
+{
+    [...]
+    DOCKER_CONTAINER_IS_RUNNING=true
+}
+```
+> The response has the same name of the function, but without the string 'check' and all capital letter.
+
+
 ## Versioning
 
 Every change should be non breakable, if it worked for you in some *main version* it should continue to work in all corrections and new functions.
