@@ -45,8 +45,8 @@ dockerhub_check_image_exists()
     # LOCAL_RESPONSE=$(curl --silent -f -lSL https://index.docker.io/v1/repositories/$LOCAL_IMAGE/tags/$LOCAL_TAG >&1)
 
     if [[ $LOCAL_RESPONSE == "200" ]]; then
-      RESPONSE_IMAGE_EXIST=true
+        DOCKERHUB_IMAGE_EXISTS=true
     else
-      RESPONSE_IMAGE_EXIST=false
+      DOCKERHUB_IMAGE_EXISTS=false
     fi
 }
