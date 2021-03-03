@@ -47,6 +47,6 @@ dockerhub_check_image_exists()
     if [[ $LOCAL_RESPONSE == "200" ]]; then
         DOCKERHUB_IMAGE_EXISTS=true
     else
-      DOCKERHUB_IMAGE_EXISTS=false
+        DOCKERHUB_IMAGE_EXISTS=false
     fi
 }
