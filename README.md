@@ -37,6 +37,10 @@ docker_check_container_is_running()
 > The response has the same name of the function, but without the string 'check' and all capital letter.
 
 
+***** GET FUNCIONS AS WELL 
+
+ip_get_external_ipv4 example returns IP_EXTERNAL_IPV4
+
 ## Versioning
 
 Every change should be non breakable, if it worked for you in some *main version* it should continue to work in all corrections and new functions.
