@@ -45,13 +45,14 @@ confirm_user_action()
 
     # The default question is to set "No" 
     if [[ "$LOCAL_INVERT_DEFAULT" == true ]]; then
-        LOCAL_USER_QUESTION="$LOCAL_USER_QUESTION (default: YES) [Y/n]"
+        LOCAL_USER_QUESTION="$LOCAL_USER_QUESTION \n(default: YES) [Y/n]"
     else
-        LOCAL_USER_QUESTION="$LOCAL_USER_QUESTION (default: NO) [y/N]"
+        LOCAL_USER_QUESTION="$LOCAL_USER_QUESTION \n(default: NO) [y/N]"
     fi
 
     echo ${blue}
-    read -r -p "$LOCAL_USER_QUESTION" LOCAL_USER_RESPONSE
+    printf " ${LOCAL_USER_QUESTION//\\n/\\n}" 1>&2;
+    read -r LOCAL_USER_RESPONSE
     echo ${reset}
 
     # The default question is to return "No" 
