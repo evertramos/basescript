@@ -35,7 +35,7 @@ function_name()
    
 #    LOCAL_=${1:-null}
  
-#    [[ $LOCAL_ == ""  || $LOCAL_ == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+#    [[ $LOCAL_ == "" || $LOCAL_ == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
  
 #    [[ "$DEBUG" == true ]] && echo ""
 #    [[ "$SILENT" == true ]] && echo ""

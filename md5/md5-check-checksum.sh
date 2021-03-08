@@ -38,9 +38,9 @@ md5_check_checksum()
     LOCAL_FILE_NAME=${2:-null}
     LOCAL_CHECKSUM_STRING=${3:-null}
 
-    [[ $LOCAL_FILE_PATH == ""  || $LOCAL_FILE_PATH == null || \
-        LOCAL_FILE_NAME == ""  || $LOCAL_FILE_NAME == null || \
-        $LOCAL_CHECKSUM_STRING == ""  || $LOCAL_CHECKSUM_STRING == null ]] && \
+    [[ $LOCAL_FILE_PATH == "" || $LOCAL_FILE_PATH == null || \
+        LOCAL_FILE_NAME == "" || $LOCAL_FILE_NAME == null || \
+        $LOCAL_CHECKSUM_STRING == "" || $LOCAL_CHECKSUM_STRING == null ]] && \
         echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Verifying checksum for '$LOCAL_FILE_PATH/$LOCAL_FILE_NAME' > [$LOCAL_CHECKSUM_STRING]."

@@ -41,7 +41,7 @@ docker_compose_replace_string()
     LOCAL_DOCKER_COMPOSE_FILE_NAME=${4:-"docker-compose.yml"}
     LOCAL_DOCKER_COMPOSE_FULL_FILE_PATH="${LOCAL_DOCKER_COMPOSE_PATH%/}/$LOCAL_DOCKER_COMPOSE_FILE_NAME"
 
-    [[ $LOCAL_REPLACE_STRING_TO == ""  || $LOCAL_REPLACE_STRING_TO == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_REPLACE_STRING_TO == "" || $LOCAL_REPLACE_STRING_TO == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     # Check if file exists
     [[ "$DEBUG" == true ]] && echo "Updating in file '$LOCAL_DOCKER_COMPOSE_FULL_FILE_PATH' the string from: '$LOCAL_REPLACE_STRING_FROM' to: '$LOCAL_REPLACE_STRING_TO' - [function: ${FUNCNAME[0]}]"

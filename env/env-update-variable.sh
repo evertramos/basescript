@@ -41,7 +41,7 @@ env_update_variable()
     LOCAL_CREATE_IF_NOT_EXIST=${4:-false}
     LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/.env"
  
-    [[ $LOCAL_NEW_VALUE == ""  || $LOCAL_NEW_VALUE == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_NEW_VALUE == "" || $LOCAL_NEW_VALUE == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Updating in '$LOCAL_ENV_FINAL_FILE' the variable '$LOCAL_VARIABLE' with value '$LOCAL_NEW_VALUE'"
 
