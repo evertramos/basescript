@@ -48,11 +48,11 @@ docker_network_create()
 
     # Create docker network
     if [[ "$LOCAL_ENABLE_IPv6" == true ]]; then
-        if ! docker netowrk create $LOCAL_NETWORK_NAME --ipv6 --subnet=$LOCAL_IPv6_SUBNET; then
+        if ! docker network create $LOCAL_NETWORK_NAME --ipv6 --subnet=$LOCAL_IPv6_SUBNET; then
             ERROR_DOCKER_NETWORK_CREATE=true
         fi
     else
-        if ! docker netowrk create $LOCAL_NETWORK_NAME; then
+        if ! docker network create $LOCAL_NETWORK_NAME; then
             ERROR_DOCKER_NETWORK_CREATE=true
         fi
     fi
