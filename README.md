@@ -61,3 +61,6 @@ There will be a specific page for documentation and samples of every function in
 Please check
 
 [Docs](docs/README.md)
+
+# Support this project at [Patreon](https://www.patreon.com/evertramos)
+[https://www.patreon.com/evertramos](https://www.patreon.com/evertramos)
