@@ -43,7 +43,7 @@ checkdocker()
         return 1
     fi
 
-    if [[ ! docker info > /dev/null 2>&1; then
+    if ! docker info > /dev/null 2>&1; then
         MESSAGE="'docker' is not running..."
         return 1
     fi
