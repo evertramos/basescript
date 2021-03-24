@@ -44,7 +44,7 @@ checkdocker()
     fi
 
     if ! docker info > /dev/null 2>&1; then
-        MESSAGE="'docker' is not running..."
+        MESSAGE="'$DOCKER_COMMAND' is not running..."
         return 1
     fi
 }
