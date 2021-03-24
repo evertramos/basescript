@@ -5,7 +5,7 @@ Under development!
 
 Some handy scripts to make your life easier. 
 
-> All scripts were desgined to run in bash. Hum... right, I might know what you think, shebang... yes I used absolute path in all scripts, '/bin/bash'. Yes there is few discussions on that, but if you plan to use it in some other settings and know a fex tricks in bash you will be able to update it to wherever your bash is. Sorry if it does not apply to you... 
+> All scripts were desgined to run in bash. Hum... right, You might ask about _shebang_... yes I used absolute path in all scripts '/bin/bash'. Yes, there is discussions on that matter, but if you plan to use it and don't use bash, you probably know some tricks to update all files at once, right? If not I will provide you a way to do that, if you have _sed_ at least.
 
 ## Thoughts
 
