@@ -37,12 +37,13 @@ checkdocker()
     if [[ "$DEBUG" == true ]]; then
         echo "Check if '$DOCKER_COMMAND' is installed and running."
     fi
+
     if [[ ! -x "$(command -v "$DOCKER_COMMAND")" ]]; then
         MESSAGE="'docker' is not installed!"
         return 1
     fi
 
-    if [[ ! "$(systemctl is-active "$DOCKER_COMMAND")" == "active" ]]; then
+    if [[ ! docker info > /dev/null 2>&1; then
         MESSAGE="'docker' is not running..."
         return 1
     fi
