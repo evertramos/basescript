@@ -34,7 +34,7 @@ string_remove_all_special_char_string()
     local LOCAL_STRING LOCAL_KEEP_SPECIAL_CHAR
     
     LOCAL_STRING=${1:-null}
-    LOCAL_KEEP_SPECIAL_CHAR=${2:--}
+    LOCAL_KEEP_SPECIAL_CHAR=${2}
 
     [[ $LOCAL_STRING == "" || $LOCAL_STRING == null ]] && echoerr "You must inform an argument to the function: '${FUNCNAME[0]}'"
 
