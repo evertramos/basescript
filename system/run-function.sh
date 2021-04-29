@@ -29,9 +29,15 @@
 #
 #-----------------------------------------------------------------------
 
-run_function() {
+run_function()
+{
+    local LOCAL_LOG_ACTION
+
+    LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
 
     [[ $1 == "" ]] && echoerr "You must inform an argument to the function '${FUNCNAME[0]}', \nplease check the docs."
+
+    [[ "$LOCAL_LOG_ACTION" == true ]] && log "Function $@"
 
     # Check $SILENT mode
     if [[ "$SILENT" == true ]]; then
@@ -64,6 +70,7 @@ run_function() {
                 $1
             fi
         else
+            [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [ERROR] (Function $1 not found)"
             echo "${red}----------------------------------------------------------------------${reset}"
             echo "${red}|${reset}"
             echo "${red}| [ERROR] Function \"$1\" not found!${reset}"
@@ -75,6 +82,7 @@ run_function() {
 
         # Show result from the function execution
         if [[ $? -ne 0 ]]; then
+            [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [ERROR]"
             echo "${red}----------------------------------------------------------------------${reset}"
             echo "${red}|${reset}"
             echo "${red}| Ups! Something went wrong...${reset}"
@@ -86,6 +94,7 @@ run_function() {
             echo "${yellow}[ended with ${red}ERROR${yellow}/WARNING ($?)-----------------------------------------${reset}"
             exit 1
         else
+            [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [SUCCESS]"
             echo "${green}>>> Success!${reset}"
         fi
 

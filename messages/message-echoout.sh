@@ -32,9 +32,12 @@
 # Error message
 echoerr()
 {
-  local LOCAL_STOP_EXECUTION_ON_ERROR
+  local LOCAL_LOG_ACTION LOCAL_STOP_EXECUTION_ON_ERROR
 
+  LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-true}
+
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[ERROR MESSAGE] $@"
 
   # Check $SILENT mode
   if [[ "$SILENT" == true ]]; then
@@ -53,9 +56,12 @@ echoerr()
 # Warning message
 echowarning() 
 {
-  local LOCAL_STOP_EXECUTION_ON_ERROR
+  local LOCAL_LOG_ACTION LOCAL_STOP_EXECUTION_ON_ERROR
 
+  LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-false}
+
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[WARGNING MESSAGE] $@"
 
   # Check $SILENT mode
   if [[ "$SILENT" != true ]]; then
@@ -72,9 +78,12 @@ echowarning()
 # Success message
 echosuccess() 
 {
-  local LOCAL_STOP_EXECUTION_ON_ERROR
+  local LOCAL_LOG_ACTION LOCAL_STOP_EXECUTION_ON_ERROR
 
+  LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-false}
+
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[SUCCESS MESSAGE] $@"
 
   # Check $SILENT mode
   if [[ "$SILENT" != true ]]; then
@@ -91,9 +100,12 @@ echosuccess()
 # Regular line message
 echoline() 
 {
-  local LOCAL_STOP_EXECUTION_ON_ERROR
+  local LOCAL_LOG_ACTION LOCAL_STOP_EXECUTION_ON_ERROR
 
+  LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-false}
+
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[MESSAGE] $@"
 
   # Check $SILENT mode
   if [[ "$SILENT" != true ]]; then
