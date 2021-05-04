@@ -32,7 +32,7 @@
 DOCKER_COMMAND="docker"
 
 # Check if Docker is installed in the System
-checkdocker() 
+check_docker()
 {
     if [[ "$DEBUG" == true ]]; then
         echo "Check if '$DOCKER_COMMAND' is installed and running."

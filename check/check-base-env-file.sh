@@ -29,7 +29,7 @@
 #
 #-----------------------------------------------------------------------
 
-checkbaseenvfile() 
+check_base_env_file()
 {
     if [[ "$DEBUG" == true ]]; then
         echo "Check if base folder '.env' file is set."
