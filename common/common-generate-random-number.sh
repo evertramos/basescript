@@ -40,7 +40,7 @@ common_generate_random_string()
     RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $LOCAL_SIZE | head -n 1)
 
     if [[ "$RANDOM_STRING" == "" ]]; then
-        echoerr "Error generating a random string. Please check the function 'common_generate_random_string'."
+        echoerror "Error generating a random string. Please check the function 'common_generate_random_string'."
         return 1
     else
         return 0

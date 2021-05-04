@@ -29,7 +29,7 @@
 #
 #-----------------------------------------------------------------------
 
-checklocalenvfile() 
+check_local_env_file()
 {
     [[ "$DEBUG" == true ]] && echo "Check if local '.env' file is set."
 

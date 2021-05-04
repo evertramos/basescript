@@ -35,7 +35,7 @@ run_function()
 
     LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
 
-    [[ $1 == "" ]] && echoerr "You must inform an argument to the function '${FUNCNAME[0]}', \nplease check the docs."
+    [[ $1 == "" ]] && echoerror "You must inform an argument to the function '${FUNCNAME[0]}', \nplease check the docs."
 
     [[ "$LOCAL_LOG_ACTION" == true ]] && log "Function $@"
 

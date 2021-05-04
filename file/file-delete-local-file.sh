@@ -35,7 +35,7 @@ file_delete_local_file()
      
     LOCAL_FILE=${1:-null}
 
-    [[ $LOCAL_FILE == "" ]] && echoerr "You must inform the required argument(s) to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
+    [[ $LOCAL_FILE == "" ]] && echoerror "You must inform the required argument(s) to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
  
     [[ "$DEBUG" == true ]] && echo "Deleting file '$LOCAL_FILE'"
 

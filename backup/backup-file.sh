@@ -38,7 +38,7 @@ backup_file()
     LOCAL_BACKUP_TAG_STRING=${2:-".backup_$(date +'%Y%m%d-%H%M%S')"}
 
     # Check required 
-    [[ $LOCAL_FULL_FILE_PATH == "" || $LOCAL_FULL_FILE_PATH == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_FULL_FILE_PATH == "" || $LOCAL_FULL_FILE_PATH == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     # Debug message
     [[ "$DEBUG" == true ]] && echo "Back up file: '$LOCAL_FULL_FILE_PATH' \nto '$LOCAL_FULL_FILE_PATH$LOCAL_BACKUP_TAG_STRING'."

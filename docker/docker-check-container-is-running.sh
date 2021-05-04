@@ -35,7 +35,7 @@ docker_check_container_is_running()
     
     LOCAL_CONTAINER_NAME=${1:-null}
 
-    [[ $LOCAL_CONTAINER_NAME == "" || $LOCAL_CONTAINER_NAME == null ]] && echoerr "You must inform the container name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_CONTAINER_NAME == "" || $LOCAL_CONTAINER_NAME == null ]] && echoerror "You must inform the container name to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Checking if the container '$LOCAL_CONTAINER_NAME' is running in this server."
 

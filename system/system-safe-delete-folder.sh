@@ -46,12 +46,12 @@ system_safe_delete_folder()
     DELETE_USING_SUDO=${3:-true}
     LOCAL_ALLOWED_DELETE_BASE_PATH=${LOCAL_ALLOWED_DELETE_BASE_PATH%/}
 
-    [[ $LOCAL_SAFE_DELETE_FOLDER == "" ]] && echoerr "You must inform a path as an argument to the function '${FUNCNAME[0]}'"
-    [[ $LOCAL_ALLOWED_DELETE_BASE_PATH == "" ]] && echoerr "It seems you have tried to delete an unauthorized path. Please watch your fingers! \n path: '$LOCAL_SAFE_DELETE_FOLDER' - function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_SAFE_DELETE_FOLDER == "" ]] && echoerror "You must inform a path as an argument to the function '${FUNCNAME[0]}'"
+    [[ $LOCAL_ALLOWED_DELETE_BASE_PATH == "" ]] && echoerror "It seems you have tried to delete an unauthorized path. Please watch your fingers! \n path: '$LOCAL_SAFE_DELETE_FOLDER' - function: '${FUNCNAME[0]}'"
 
     LOCAL_BASE_PATH=${LOCAL_SAFE_DELETE_FOLDER#/}
     LOCAL_BASE_PATH=${LOCAL_BASE_PATH%%/*}
-    [[ $LOCAL_ALLOWED_DELETE_BASE_PATH != $LOCAL_BASE_PATH ]] && echoerr "You are not authorized to delete '$LOCAL_SAFE_DELETE_FOLDER'"
+    [[ $LOCAL_ALLOWED_DELETE_BASE_PATH != $LOCAL_BASE_PATH ]] && echoerror "You are not authorized to delete '$LOCAL_SAFE_DELETE_FOLDER'"
     
     [[ "$DEBUG" == true ]] && echowarning "Deleting folder '$LOCAL_SAFE_DELETE_FOLDER'"
 

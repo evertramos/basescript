@@ -38,7 +38,7 @@ env_create_if_not_exists()
     LOCAL_ENV_EXAMPLE_FILE="${LOCAL_FULL_PATH%/}/.env$LOCAL_ENV_EXTENTION_STRING"
     LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/.env"
 
-    [[ $LOCAL_FULL_PATH == "" || $LOCAL_FULL_PATH == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_FULL_PATH == "" || $LOCAL_FULL_PATH == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     [[ -f "$LOCAL_FULL_PATH" ]] && return 0
      

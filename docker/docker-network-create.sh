@@ -39,10 +39,10 @@ docker_network_create()
     LOCAL_ENABLE_IPv6=${2:-false}
     LOCAL_IPv6_SUBNET=${3:-"2001:db8:1:1::/112"}
 
-    [[ $LOCAL_NETWORK_NAME == "" || $LOCAL_NETWORK_NAME == null ]] && echoerr "You must inform the network name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_NETWORK_NAME == "" || $LOCAL_NETWORK_NAME == null ]] && echoerror "You must inform the network name to the function: '${FUNCNAME[0]}'"
 
     [[ ! $LOCAL_ENABLE_IPv6 == "" && ! $LOCAL_ENABLE_IPv6 == null ]] && \
-        [[ $LOCAL_IPv6_SUBNET == "" || $LOCAL_IPv6_SUBNET == null ]] && echoerr "You must inform the network subnet for ipv6"
+        [[ $LOCAL_IPv6_SUBNET == "" || $LOCAL_IPv6_SUBNET == null ]] && echoerror "You must inform the network subnet for ipv6"
 
     [[ "$DEBUG" == true ]] && echo "Creating the network '$LOCAL_NETWORK_NAME' in this server."
 

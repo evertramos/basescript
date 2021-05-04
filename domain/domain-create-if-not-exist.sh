@@ -45,8 +45,8 @@ domain_create_domain_if_not_exist()
     LOCAL_DNS_PROVIDER=${3:-"digitalocean"}
     LOCAL_PROXY_SERVICE=${4:-"nginx-proxy"}
 
-    [[ $LOCAL_DOMAIN == "" || $LOCAL_DOMAIN == null ]] && echoerr "You must inform a Domain name to the function '${FUNCNAME[0]}'"
-    [[ $API_KEY == "" ]] && echoerr "You need an API KEY to use the function ('${FUNCNAME[0]}')"
+    [[ $LOCAL_DOMAIN == "" || $LOCAL_DOMAIN == null ]] && echoerror "You must inform a Domain name to the function '${FUNCNAME[0]}'"
+    [[ $API_KEY == "" ]] && echoerror "You need an API KEY to use the function ('${FUNCNAME[0]}')"
 
     [[ "$DEBUG" == true ]] && echowarning "Creating the domain '$LOCAL_DOMAIN' if it does not exist in the DNS records"
 
@@ -59,7 +59,7 @@ domain_create_domain_if_not_exist()
 
         # Verify if there were an error on creating the new domain
         if [[ "$domain_create_domain_dns_ERROR" == true ]]; then
-            echoerr "Error on creating the domain '$LOCAL_DOMAIN' - response '$RESPONSE'" false
+            echoerror "Error on creating the domain '$LOCAL_DOMAIN' - response '$RESPONSE'" false
         fi
 
         # Check AGAIN if url exist
@@ -67,7 +67,7 @@ domain_create_domain_if_not_exist()
 
         # If url does not exists create subdomain
         if [[ "$DOMAIN_EXIST" == false ]]; then
-            echoerr "It seems there is an error related to the domain '$LOCAL_DOMAIN' - response '$RESPONSE'" false
+            echoerror "It seems there is an error related to the domain '$LOCAL_DOMAIN' - response '$RESPONSE'" false
         fi
 
         DOMAIN_CREATED=true
@@ -78,7 +78,7 @@ domain_create_domain_if_not_exist()
 
     if [[ "$DOMAIN_ACTIVE_IN_PROXY" == true ]]; then
         DOMAIN_ALREADY_ACTIVE_IN_PROXY=true
-        [[ "$LOCAL_STOP_EXECUTION_IF_RUNNING" == true ]] && echoerr "The domain '$LOCAL_DOMAIN' is active in the proxy."
+        [[ "$LOCAL_STOP_EXECUTION_IF_RUNNING" == true ]] && echoerror "The domain '$LOCAL_DOMAIN' is active in the proxy."
     else
         DOMAIN_ALREADY_ACTIVE_IN_PROXY=false
     fi

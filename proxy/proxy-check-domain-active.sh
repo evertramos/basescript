@@ -37,7 +37,7 @@ proxy_check_url_active()
     LOCAL_URL=${1:-null}
     LOCAL_PROXY_SERVICE=${2:-"nginx-proxy"}
 
-    [[ $LOCAL_URL == "" || $LOCAL_URL == null ]] && echoerr "You must inform an URL to the function '${FUNCNAME[0]}'"
+    [[ $LOCAL_URL == "" || $LOCAL_URL == null ]] && echoerror "You must inform an URL to the function '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Checking if the URL '$LOCAL_URL' is running in the Proxy."
 
@@ -45,7 +45,7 @@ proxy_check_url_active()
         # nginx-proxy
         LOCAL_CHECK_URL_ACTIVE_PROXY=$(cat $PROXY_FOLDER/data/conf.d/default.conf | grep "upstream $LOCAL_URL" | wc -l)
     else
-        echoerr "The proxy service '$LOCAL_PROXY_SERVICE' is not supported by this function [${FUNCNAME[0]}]"
+        echoerror "The proxy service '$LOCAL_PROXY_SERVICE' is not supported by this function [${FUNCNAME[0]}]"
     fi
 
     if [[ $LOCAL_CHECK_URL_ACTIVE_PROXY > 0 ]]; then

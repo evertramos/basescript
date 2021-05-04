@@ -39,7 +39,7 @@ domain_check_domain_exists()
     LOCAL_DOMAIN=${1:-$DOMAIN}
     LOCAL_DNS_PROVIDER=${2:-"digitalocean"}
 
-    [[ $LOCAL_DOMAIN == "" || $LOCAL_DOMAIN == null ]] && echoerr "You must inform the domain name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_DOMAIN == "" || $LOCAL_DOMAIN == null ]] && echoerror "You must inform the domain name to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Checking if domain '"$LOCAL_DOMAIN"' exists"
 
@@ -49,7 +49,7 @@ domain_check_domain_exists()
         RESPONSE="$(curl -X GET -H "Authorization: Bearer $API_KEY" -H "Content-Type: application/json" \
             "https://api.digitalocean.com/v2/domains/$LOCAL_DOMAIN" | jq 'select(.domain != null) | .domain.name')"
     else
-        echoerr "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
+        echoerror "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
     fi
 
     [[ "$DEBUG" == true ]] && echo "RESPONSE: "${RESPONSE:-Not found!}

@@ -45,18 +45,18 @@ select_one_option()
     LOCAL_MESSAGE=${2:-"Select one of the options below:"}
     LOCAL_LIMIT=${3:-20}
 
-    [[ $LOCAL_OPTIONS == "" ]] && echoerr "You must inform the options to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_OPTIONS == "" ]] && echoerror "You must inform the options to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Selecting one option - [function: ${FUNCNAME[0]}]"
 
     if [[ ${#LOCAL_OPTIONS[@]} -eq 0 ]]; then
-        echoerr "There are no options available for selection number of option is greater than '$LOCAL_LIMIT'"
+        echoerror "There are no options available for selection number of option is greater than '$LOCAL_LIMIT'"
         ERROR_EMPTY_ARRAY_SELECT_ONE_OPTION=true
         return 0
     fi
 
     if [[ ${#LOCAL_OPTIONS[@]} -gt $LOCAL_LIMIT ]]; then
-        echoerr "The number of option is greater than '$LOCAL_LIMIT'" false
+        echoerror "The number of option is greater than '$LOCAL_LIMIT'" false
         ERROR_LIMIT_SELECT_ONE_OPTION=true
         return 0
     fi

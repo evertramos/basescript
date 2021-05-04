@@ -36,7 +36,7 @@ dockerhub_list_tags()
     LOCAL_IMAGE=${1:-null}
     LOCAL_GET_TWO_DIGITS_VERSIONS=${2:-true}
 
-    [[ $LOCAL_IMAGE == "" || $LOCAL_IMAGE == null ]] && echoerr "You must inform at least the image name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_IMAGE == "" || $LOCAL_IMAGE == null ]] && echoerror "You must inform at least the image name to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Listing tags from docker hub for image '$LOCAL_IMAGE'"
 

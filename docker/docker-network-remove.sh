@@ -35,7 +35,7 @@ docker_network_remove()
     
     LOCAL_NETWORK_NAME=${1:-null}
 
-    [[ $LOCAL_NETWORK_NAME == "" || $LOCAL_NETWORK_NAME == null ]] && echoerr "You must inform the network name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_NETWORK_NAME == "" || $LOCAL_NETWORK_NAME == null ]] && echoerror "You must inform the network name to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Removing the network '$LOCAL_NETWORK_NAME' in this server."
 

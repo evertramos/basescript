@@ -44,7 +44,7 @@ docker_compose_start()
     LOCAL_DOCKER_COMPOSE_ENV_PATH=${5:-$LOCAL_DOCKER_COMPOSE_PATH}
     LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE="${LOCAL_DOCKER_COMPOSE_ENV_PATH%/}/$LOCAL_DOCKER_COMPOSE_ENV_FILE"
    
-    [[ $LOCAL_DOCKER_COMPOSE_PATH == "" || $LOCAL_DOCKER_COMPOSE_PATH == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_DOCKER_COMPOSE_PATH == "" || $LOCAL_DOCKER_COMPOSE_PATH == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Starting docker composer service for '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME' - [function: ${FUNCNAME[0]}]"
    

@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------
 
 # Error message
-echoerr()
+echoerror()
 {
   local LOCAL_LOG_ACTION LOCAL_STOP_EXECUTION_ON_ERROR
 

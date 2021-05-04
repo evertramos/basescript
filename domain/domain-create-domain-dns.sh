@@ -51,7 +51,7 @@ domain_create_domain_dns()
             #-d "{\"name\":\"$LOCAL_DOMAIN\", \"ip_address\":\"$IP\"}" "https://api.digitalocean.com/v2/domains" \
             #| jq 'select(.domain != null) | .domain.name')"
     else
-        echoerr "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
+        echoerror "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
     fi
 
     [[ "$DEBUG" == true ]] && echo "RESPONSE: "${RESPONSE:-Error on create domain $LOCAL_DOMAIN!}
@@ -59,7 +59,7 @@ domain_create_domain_dns()
     # Check if there were an error on creating the domain
     LOCAL_ERROR=$(echo $RESPONSE | grep "unprocessable_entity")
     if [[ $LOCAL_ERROR != "" ]]; then
-        [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && echoerr "Error on running '${FUNCNAME[0]}' with output '$RESPONSE'"
+        [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && echoerror "Error on running '${FUNCNAME[0]}' with output '$RESPONSE'"
         domain_create_domain_dns_ERROR=true
     else
         domain_create_domain_dns_ERROR=false

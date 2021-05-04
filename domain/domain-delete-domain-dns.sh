@@ -42,8 +42,8 @@ domain_delete_domain_dns()
     LOCAL_DELETE_IF_RUNNING=${2:-false}
     LOCAL_DNS_PROVIDER=${3:-"digitalocean"}
 
-    [[ $LOCAL_DOMAINS == "" ]] && echoerr "You need to inform a argunment for the function '${FUNCNAME[0]}'"
-    [[ $API_KEY == "" ]] && echoerr "You need an API KEY to use this function ('${FUNCNAME[0]}')"
+    [[ $LOCAL_DOMAINS == "" ]] && echoerror "You need to inform a argunment for the function '${FUNCNAME[0]}'"
+    [[ $API_KEY == "" ]] && echoerror "You need an API KEY to use this function ('${FUNCNAME[0]}')"
 
     for i in ${!LOCAL_DOMAINS[@]}; do
         [[ "$SILENT" != true ]] && echowarning "Deleting dns for url '${LOCAL_DOMAINS[i]}'"
@@ -54,7 +54,7 @@ domain_delete_domain_dns()
             run_function proxy_check_url_active $LOCAL_DOMAIN
             
             if [[ "$DOMAIN_ACTIVE_IN_PROXY" == true ]]; then
-                echoerr "The domain '$LOCAL_DOMAIN' is active in the proxy. Domain not deleted from the DNS."
+                echoerror "The domain '$LOCAL_DOMAIN' is active in the proxy. Domain not deleted from the DNS."
                 return 0
             fi
         fi
@@ -70,7 +70,7 @@ domain_delete_domain_dns()
             RESPONSE="$(curl -X GET -H "Authorization: Bearer $API_KEY" -H "Content-Type: application/json" \
                 "https://api.digitalocean.com/v2/domains/$LOCAL_DOMAIN" | jq 'select(.domain != null) | .domain.name')"
         else
-            echoerr "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
+            echoerror "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
         fi
 
         [[ "$DEBUG" == true ]] && echosuccess "RESPONSE: "$RESPONSE

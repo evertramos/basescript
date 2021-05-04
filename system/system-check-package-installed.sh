@@ -36,7 +36,7 @@ system_check_package_installed()
     LOCAL_PACKAGE=${1:-null}
     LOCAL_INSTALL_PACKAGED=${2:-false}
 
-    [[ $LOCAL_PACKAGE == "" ]] && echoerr "You must inform the PACKAGE NAME to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_PACKAGE == "" ]] && echoerror "You must inform the PACKAGE NAME to the function: '${FUNCNAME[0]}'"
  
     [[ "$DEBUG" == true ]] && echo "Checking if package '$LOCAL_PACKAGE' is installed."
 
@@ -45,7 +45,7 @@ system_check_package_installed()
     if [[ "$LOCAL_INSTALL_PACKAGED" == true ]] && [[ $LOCAL_RESULT == 1 ]]; then
         [[ "$DEBUG" == true ]] && echo "Installing package '$LOCAL_PACKAGE'."
 
-        sudo apt-get install -y --no-install-recommends $LOCAL_PACKAGE || echoerr "There were errors when installing package '$LOCAL_PACKAGE'."
+        sudo apt-get install -y --no-install-recommends $LOCAL_PACKAGE || echoerror "There were errors when installing package '$LOCAL_PACKAGE'."
         
         LOCAL_RESULT=$(dpkg -s tars >/dev/null 2>&1)
     fi

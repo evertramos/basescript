@@ -35,13 +35,13 @@ domain_get_domain_from_url()
 
     LOCAL_URL="${1:-null}"
 
-    [[ $LOCAL_URL == "" || $LOCAL_URL == null ]] && echoerr "You must inform an URL to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_URL == "" || $LOCAL_URL == null ]] && echoerror "You must inform an URL to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" = true ]] && echo "Getting the domain name from a URL."
 
     if [[ "$LOCAL_URL" != '' ]]; then
        DOMAIN_URL_RESPONSE="$(echo $LOCAL_URL | sed -e 's|www.||' -e 's|^[^/]*//||' -e 's|/.*$||')"
     else
-       [[ "$SILENT" != true ]] && echoerr "You must inform the URL in order the extract the domain name."
+       [[ "$SILENT" != true ]] && echoerror "You must inform the URL in order the extract the domain name."
     fi
 }

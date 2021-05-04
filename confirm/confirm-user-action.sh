@@ -76,7 +76,7 @@ confirm_user_action()
         esac
     fi
 
-    [[ "$USER_ACTION_RESPONSE" != true ]] && [[ "$LOCAL_KILL_SCRIPT" == true ]] && echoerr "You have canceled your action. No changes were made."
+    [[ "$USER_ACTION_RESPONSE" != true ]] && [[ "$LOCAL_KILL_SCRIPT" == true ]] && echoerror "You have canceled your action. No changes were made."
 
     return 0
 }

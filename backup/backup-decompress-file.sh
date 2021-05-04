@@ -39,7 +39,7 @@ backup_decompress_file()
     LOCAL_BACKUP_FULL_FILE=${2:-null}
     RUN_WITH_SUDO=${3:-true}
 
-    [[ $LOCAL_DESTINATION_FOLDER == "" || $LOCAL_DESTINATION_FOLDER == null ]] || [[ $LOCAL_BACKUP_FULL_FILE == "" || $LOCAL_BACKUP_FULL_FILE == null ]] && echoerr "You must inform DESTINATION and FULLFILE NAME to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
+    [[ $LOCAL_DESTINATION_FOLDER == "" || $LOCAL_DESTINATION_FOLDER == null ]] || [[ $LOCAL_BACKUP_FULL_FILE == "" || $LOCAL_BACKUP_FULL_FILE == null ]] && echoerror "You must inform DESTINATION and FULLFILE NAME to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
 
     run_function system_check_package_installed "tar" true
     run_function system_check_package_installed "gzip" true

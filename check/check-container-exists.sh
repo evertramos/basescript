@@ -35,7 +35,7 @@ check_container_exists()
 
     LOCAL_CONTAINER_NAME="${1:-null}"
 
-    [[ $LOCAL_CONTAINER_NAME == "" || $LOCAL_CONTAINER_NAME == null ]] && echoerr "You must inform a container name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_CONTAINER_NAME == "" || $LOCAL_CONTAINER_NAME == null ]] && echoerror "You must inform a container name to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Checking if the container '"$LOCAL_CONTAINER_NAME"' is exists"
 

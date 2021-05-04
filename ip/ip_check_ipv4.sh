@@ -36,7 +36,7 @@ ip_check_ipv4()
     LOCAL_IP_ADDRESS=${1:-null}
 
     # Check required
-    [[ $LOCAL_IP_ADDRESS == "" || $LOCAL_IP_ADDRESS == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_IP_ADDRESS == "" || $LOCAL_IP_ADDRESS == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     if [[ $LOCAL_IP_ADDRESS =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
         IP_IPV4=true

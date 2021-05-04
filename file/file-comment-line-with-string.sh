@@ -40,10 +40,10 @@ file_comment_line_with_string()
 
     # Check required 
     [[ $LOCAL_FULL_FILE_PATH == "" || $LOCAL_FULL_FILE_PATH == null || $LOCAL_STRING == "" || $LOCAL_STRING == null ]] && \
-        echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+        echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     # Check if file exists | exit if 4th parameter is set to 'true'
-    [[ ! -f $LOCAL_FULL_FILE_PATH ]] && echoerr "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \nPlease inform the correct location and try again (function: ${FUNCNAME[0]})."
+    [[ ! -f $LOCAL_FULL_FILE_PATH ]] && echoerror "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \nPlease inform the correct location and try again (function: ${FUNCNAME[0]})."
 
     # Debug message 
     [[ "$DEBUG" == true ]] && echo "Uncommenting '$LOCAL_STRING' in '$LOCAL_FULL_FILE_PATH' removing the '$LOCAL_COMMENT_MARK'."

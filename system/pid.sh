@@ -34,7 +34,7 @@
 system_save_pid() {
     local LOCAL_PID_FILE
     LOCAL_PID_FILE=${1:-$PID_FILE}
-    [[ $LOCAL_PID_FILE == "" || $LOCAL_PID_FILE == null ]] && echoerr "You must inform the pid file name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_PID_FILE == "" || $LOCAL_PID_FILE == null ]] && echoerror "You must inform the pid file name to the function: '${FUNCNAME[0]}'"
     echo $$ > $SCRIPT_PATH/$LOCAL_PID_FILE
     trap "system_delete_pid $LOCAL_PID_FILE" EXIT SIGQUIT SIGINT SIGSTOP SIGTERM ERR
 }
@@ -42,7 +42,7 @@ system_save_pid() {
 system_delete_pid() {
     local LOCAL_PID_FILE
     LOCAL_PID_FILE=${1:-$PID_FILE}
-    [[ $LOCAL_PID_FILE == "" || $LOCAL_PID_FILE == null ]] && echoerr "You must inform the pid file name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_PID_FILE == "" || $LOCAL_PID_FILE == null ]] && echoerror "You must inform the pid file name to the function: '${FUNCNAME[0]}'"
     rm -f $SCRIPT_PATH/$LOCAL_PID_FILE
     log "End execution $SCRIPT_NAME [PID: $LOCAL_PID_FILE]"
 }

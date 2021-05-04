@@ -48,7 +48,7 @@ git_clone_repo()
     LOCAL_GIT_FOLDER_NAME=${4}
     LOCAL_FULL_REPO=${5:-false}
  
-    [[ $LOCAL_FULL_PATH == "" || $LOCAL_FULL_PATH == null ]] && echoerr "You must inform the 'git repo' and the 'local path' \n to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_FULL_PATH == "" || $LOCAL_FULL_PATH == null ]] && echoerror "You must inform the 'git repo' and the 'local path' \n to the function: '${FUNCNAME[0]}'"
  
     # Prepare the FULL_PATH with LOCAL_GIT_FOLDER_NAME
     [[ $LOCAL_GIT_FOLDER_NAME != "" ]] && LOCAL_FULL_PATH=${LOCAL_FULL_PATH%/}"/"$LOCAL_GIT_FOLDER_NAME

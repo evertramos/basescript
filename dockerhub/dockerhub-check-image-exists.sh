@@ -36,7 +36,7 @@ dockerhub_check_image_exists()
     LOCAL_IMAGE=${1:-null}
     LOCAL_TAG=${2:-"latest"}
  
-    [[ $LOCAL_IMAGE == "" || $LOCAL_IMAGE == null ]] && echoerr "You must inform at least the image name to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_IMAGE == "" || $LOCAL_IMAGE == null ]] && echoerror "You must inform at least the image name to the function: '${FUNCNAME[0]}'"
  
     [[ "$DEBUG" == true ]] && echo "Checking if image '$LOCAL_IMAGE:$LOCAL_TAG' exists in docker hub"
 

@@ -47,10 +47,10 @@ file_update_file()
     LOCAL_UPDATE_VARIABLE_VALUE=${5:-false} 
 
     # Check required 
-    [[ $LOCAL_TO_STRING == "" || $LOCAL_TO_STRING == null ]] && echoerr "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_TO_STRING == "" || $LOCAL_TO_STRING == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     # Check if file exists | exit if 4th parameter is set to 'true'
-    [[ ! -f $LOCAL_FULL_FILE_PATH ]] && [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && echoerr "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \n Please inform the correct location and try again (function: ${FUNCNAME[0]})."
+    [[ ! -f $LOCAL_FULL_FILE_PATH ]] && [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && echoerror "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \n Please inform the correct location and try again (function: ${FUNCNAME[0]})."
 
     # Debug message 
     [[ "$DEBUG" == true ]] && echo "Replace '$LOCAL_FROM_STRING' to '$LOCAL_TO_STRING' in '$LOCAL_FULL_FILE_PATH'."

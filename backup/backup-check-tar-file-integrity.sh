@@ -35,13 +35,13 @@ backup_check_tar_file_integrity()
      
     LOCAL_FULLFILE_NAME=${1:-null}
  
-    [[ $LOCAL_FULLFILE_NAME == "" || $LOCAL_FULLFILE_NAME == null ]] && echoerr "You must inform the required argument(s) to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
+    [[ $LOCAL_FULLFILE_NAME == "" || $LOCAL_FULLFILE_NAME == null ]] && echoerror "You must inform the required argument(s) to the function: \n'${FUNCNAME[0]}' \nplease check the docs."
  
     [[ "$DEBUG" == true ]] && echo "Checking file's integrity: '$LOCAL_FULLFILE_NAME'"
     
     LOCAL_RESULT=$(tar tf $LOCAL_FULLFILE_NAME &> /dev/null || echo 1)
 
-    [[ $LOCAL_RESULT == 1 ]] && echoerr "The file informed is currupted or was not found: \n'$LOCAL_FULLFILE_NAME' \nplease check and try again."
+    [[ $LOCAL_RESULT == 1 ]] && echoerror "The file informed is currupted or was not found: \n'$LOCAL_FULLFILE_NAME' \nplease check and try again."
 
     return 0 
 }

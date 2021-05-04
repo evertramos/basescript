@@ -41,7 +41,7 @@ docker_compose_check_service_is_running()
     LOCAL_QTY_SERVICES=${3:-0}
 
     [[ $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME == "" || $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME == null ]] && \
-    echoerr "You must inform the docker-compose full file path to the function: '${FUNCNAME[0]}'"
+    echoerror "You must inform the docker-compose full file path to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Checking if docker-compose services are running for: '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME/$LOCAL_DOCKER_COMPOSE_FILE_NAME'"
 
