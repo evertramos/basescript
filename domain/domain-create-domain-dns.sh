@@ -47,8 +47,8 @@ domain_create_domain_dns()
         # Digital Ocean ready
         # @todo Add support for CloudFlare and AWS
         RESPONSE="$(curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer $API_KEY" \
-            -d "{\"name\":\"$LOCAL_DOMAIN\", \"ip_address\":\"$IP\"}" "https://api.digitalocean.com/v2/domains")"
-            #-d "{\"name\":\"$LOCAL_DOMAIN\", \"ip_address\":\"$IP\"}" "https://api.digitalocean.com/v2/domains" \
+            -d "{\"name\":\"$LOCAL_DOMAIN\", \"ip_address\":\"$IPv4\"}" "https://api.digitalocean.com/v2/domains")"
+            #-d "{\"name\":\"$LOCAL_DOMAIN\", \"ip_address\":\"$IPv4\"}" "https://api.digitalocean.com/v2/domains" \
             #| jq 'select(.domain != null) | .domain.name')"
     else
         echoerror "The service provider '$LOCAL_DNS_PROVIDER' is not supported by this function [${FUNCNAME[0]}]"
