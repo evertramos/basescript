@@ -43,11 +43,7 @@ echoerror()
   if [[ "$SILENT" == true ]]; then
     echo $1
   else
-    echo "${red}[ERROR]---------------------------------------------------------------${reset}"
-    printf "${red}${1//\\n/\\n}${reset}" 1>&2;
-    echo
-    echo "${red}----------------------------------------------------------------------${reset}"
-    echo 
+    printf " ${red}${error} ERROR${reset}${yellow}   ${1//\\n/\\n}${reset}\n" 1>&2;
   fi
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
@@ -64,13 +60,7 @@ echowarning()
   [[ "$LOCAL_LOG_ACTION" == true ]] && log "[WARGNING MESSAGE] $@"
 
   # Check $SILENT mode
-  if [[ "$SILENT" != true ]]; then
-    echo "${yellow}[WARNING]-------------------------------------------------------------${reset}"
-    printf "${yellow}${1//\\n/\\n}${reset}" 1>&2;
-    echo
-    echo "${yellow}----------------------------------------------------------------------${reset}"
-    echo 
-  fi
+  [[ "$SILENT" != true ]] && printf " ${yellow}${warn} WARNING${reset}${yellow} ${1//\\n/\\n}${reset}\n" 1>&2;
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
@@ -86,13 +76,7 @@ echosuccess()
   [[ "$LOCAL_LOG_ACTION" == true ]] && log "[SUCCESS MESSAGE] $@"
 
   # Check $SILENT mode
-  if [[ "$SILENT" != true ]]; then
-    echo "${green}[SUCCESS]-------------------------------------------------------------${reset}"
-    printf "${green}${1//\\n/\\n}${reset}" 1>&2;
-    echo
-    echo "${green}----------------------------------------------------------------------${reset}"
-    echo 
-  fi
+  [[ "$SILENT" != true ]] && printf " ${green}${check} SUCCESS${reset}${yellow} ${1//\\n/\\n}${reset}\n" 1>&2;
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
@@ -108,13 +92,7 @@ echoline()
   [[ "$LOCAL_LOG_ACTION" == true ]] && log "[MESSAGE] $@"
 
   # Check $SILENT mode
-  if [[ "$SILENT" != true ]]; then
-    echo "----------------------------------------------------------------------"
-    printf " ${1//\\n/\\n}" 1>&2;
-    echo
-    echo "----------------------------------------------------------------------"
-    echo 
-  fi
+  [[ "$SILENT" != true ]] && printf " ${1//\\n/\\n}\n" 1>&2;
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }

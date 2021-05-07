@@ -53,11 +53,8 @@ run_function()
             $1
         fi
     else
-        echo "${yellow}[start]---------------------------------------------------------------${reset}"
-
         # Call the specified function
         if [[ -n "$(type -t "$1")" ]] && [[ "$(type -t "$1")" = function ]]; then
-            echo "${cyan}Function: \"${1}\"${reset}"
             if [[ ! -z $5 ]]; then
                 $1 "$2" "$3" "$4" "$5"
             elif [[ ! -z $4 ]]; then
@@ -71,34 +68,22 @@ run_function()
             fi
         else
             [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [ERROR] (Function $1 not found)"
-            echo "${red}----------------------------------------------------------------------${reset}"
-            echo "${red}|${reset}"
-            echo "${red}| [ERROR] Function \"$1\" not found!${reset}"
-            echo "${red}|${reset}"
-            echo "${red}----------------------------------------------------------------------${reset}"
-            echo "${yellow}[ended with ${red}[ERROR]${yellow}]--------------------------------------------------${reset}"
+            printf " ${red}${error} ERROR${reset}${yellow}   Function '${1}' not found!${reset}\n"
             exit 1
         fi
 
         # Show result from the function execution
         if [[ $? -ne 0 ]]; then
             [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [ERROR]"
-            echo "${red}----------------------------------------------------------------------${reset}"
-            echo "${red}|${reset}"
-            echo "${red}| Ups! Something went wrong...${reset}"
-            echo "${red}|${reset}"
-            printf "${red}| ${MESSAGE//\\n/\\n|}${reset}"
-            echo
-            echo "${red}|${reset}"
-            echo "${red}----------------------------------------------------------------------${reset}"
-            echo "${yellow}[ended with ${red}ERROR${yellow}/WARNING ($?)-----------------------------------------${reset}"
+            printf " ${red}${error} ERROR${reset}${yellow}   Function '${1}' output:${reset}\n"
+            printf " ${red}${MESSAGE//\\n/\\n|}${reset}\n"
             exit 1
         else
             [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [SUCCESS]"
-            echo "${green}>>> Success!${reset}"
+            printf " ${green}$check success${reset}${blue} Function '${1}'${reset}"
         fi
 
-        echo "${yellow}[end]-----------------------------------------------------------------${reset}"
+#        echo "${yellow}[end]-----------------------------------------------------------------${reset}"
         echo
     fi
 }

@@ -21,7 +21,7 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Check if there is an .env file in the current folder  
+# 1. Check if there is an .env file in the current folder and source it
 #
 # You must/might inform the parameters below:
 # 1. n/a
