@@ -43,7 +43,7 @@ echoerror()
   if [[ "$SILENT" == true ]]; then
     echo $1
   else
-    printf " ${red}${error} ERROR${reset}${yellow}   ${1//\\n/\\n}${reset}\n" 1>&2;
+    printf " ${red}${error} ERROR${reset}${yellow}   ${1//\\n/\\n   }${reset}\n" 1>&2;
   fi
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
@@ -60,7 +60,7 @@ echowarning()
   [[ "$LOCAL_LOG_ACTION" == true ]] && log "[WARGNING MESSAGE] $@"
 
   # Check $SILENT mode
-  [[ "$SILENT" != true ]] && printf " ${yellow}${warn} WARNING${reset}${yellow} ${1//\\n/\\n}${reset}\n" 1>&2;
+  [[ "$SILENT" != true ]] && printf " ${yellow}${warn} WARNING${reset}${yellow} ${1//\\n/\\n   }${reset}\n" 1>&2;
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
@@ -76,7 +76,7 @@ echosuccess()
   [[ "$LOCAL_LOG_ACTION" == true ]] && log "[SUCCESS MESSAGE] $@"
 
   # Check $SILENT mode
-  [[ "$SILENT" != true ]] && printf " ${green}${check} SUCCESS${reset}${yellow} ${1//\\n/\\n}${reset}\n" 1>&2;
+  [[ "$SILENT" != true ]] && printf " ${green}${check} success${reset}${yellow} ${1//\\n/\\n   }${reset}\n" 1>&2;
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
@@ -92,7 +92,7 @@ echoline()
   [[ "$LOCAL_LOG_ACTION" == true ]] && log "[MESSAGE] $@"
 
   # Check $SILENT mode
-  [[ "$SILENT" != true ]] && printf " ${1//\\n/\\n}\n" 1>&2;
+  [[ "$SILENT" != true ]] && printf " ${1//\\n/\\n   }\n" 1>&2;
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
