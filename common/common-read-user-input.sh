@@ -37,7 +37,7 @@ common_read_user_input()
     
     [[ "$DEBUG" == true ]] && echo "Reading users input ["$LOCAL_USER_TEXT"]"
 
-    echo $LOCAL_USER_TEXT
+    printf "${purple} $question question ${reset}${cyan}${LOCAL_USER_TEXT//\\n/\\n   }" 1>&2;
     read LOCAL_USER_RESPONSE
     USER_INPUT_RESPONSE=$LOCAL_USER_RESPONSE
 }
