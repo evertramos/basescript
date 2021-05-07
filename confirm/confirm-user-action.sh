@@ -50,8 +50,7 @@ confirm_user_action()
         LOCAL_USER_QUESTION="$LOCAL_USER_QUESTION \n(default: NO) [y/N]"
     fi
 
-    echo ${blue}
-    printf " ${LOCAL_USER_QUESTION//\\n/\\n}" 1>&2;
+    printf "${purple} $question question ${reset}${cyan}${LOCAL_USER_QUESTION//\\n/\\n   }" 1>&2;
     read -r LOCAL_USER_RESPONSE
     echo ${reset}
 

@@ -33,11 +33,12 @@
 black=`tput setaf 0`
 red=`tput setaf 1`
 green=`tput setaf 2`
+lightgreen=`tput setaf 6`
 yellow=`tput setaf 3`
 blue=`tput setaf 4`
 magenta=`tput setaf 5`
-cyan=`tput setaf 6`
+cyan=`tput setaf 75`
 white=`tput setaf 7`
-purple=`tput setaf 75`
+purple=`tput setaf 129`
 
 reset=`tput sgr0`
