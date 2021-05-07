@@ -57,7 +57,7 @@ run_function()
 
         # Call the specified function
         if [[ -n "$(type -t "$1")" ]] && [[ "$(type -t "$1")" = function ]]; then
-            echo "${cyan}...running function \"${1}\":${reset}"
+            echo "${cyan}Function: \"${1}\"${reset}"
             if [[ ! -z $5 ]]; then
                 $1 "$2" "$3" "$4" "$5"
             elif [[ ! -z $4 ]]; then
