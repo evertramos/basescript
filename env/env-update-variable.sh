@@ -39,7 +39,7 @@ env_update_variable()
     LOCAL_VARIABLE=${2%=}
     LOCAL_NEW_VALUE=${3}
     LOCAL_CREATE_IF_NOT_EXIST=${4:-false}
-    LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/.env"
+    LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/${3:-".env"}"
  
     [[ $LOCAL_NEW_VALUE == "" || $LOCAL_NEW_VALUE == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}' \nReplace string: $LOCAL_VARIABLE"
 

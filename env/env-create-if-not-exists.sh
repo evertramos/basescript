@@ -26,17 +26,19 @@
 # You must inform the parameters below:
 # 1. Full path to the env file (destination folder)
 # 2. [optional] .env extension string (default: .example)
+# 3. [optional] .env file name (default: .env)
 #
 # ----------------------------------------------------------------------
 
 env_create_if_not_exists()
 {
-    local LOCAL_FULL_PATH LOCAL_ENV_EXTENTION_STRING LOCAL_ENV_EXAMPLE_FILE LOCAL_ENV_FINAL_FILE
-     
+    local LOCAL_FULL_PATH LOCAL_ENV_EXTENTION LOCAL_ENV_FILE_NAME LOCAL_ENV_EXAMPLE_FILE LOCAL_ENV_FINAL_FILE
+
     LOCAL_FULL_PATH=${1:-null}
-    LOCAL_ENV_EXTENTION_STRING=${2:-".example"}
-    LOCAL_ENV_EXAMPLE_FILE="${LOCAL_FULL_PATH%/}/.env$LOCAL_ENV_EXTENTION_STRING"
-    LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/.env"
+    LOCAL_ENV_EXTENTION=${2:-".example"}
+    LOCAL_ENV_FILE_NAME=${3:-".env"}
+    LOCAL_ENV_EXAMPLE_FILE="${LOCAL_FULL_PATH%/}/$LOCAL_ENV_FILE_NAME$LOCAL_ENV_EXTENTION"
+    LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/$LOCAL_ENV_FILE_NAME"
 
     [[ $LOCAL_FULL_PATH == "" || $LOCAL_FULL_PATH == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
