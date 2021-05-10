@@ -27,7 +27,8 @@
 # 1. Full path to the env file
 # 2. Variable that should be updated
 # 3. New value for the variable
-# 4. [optional] (default: false) Create .env file if not exist
+# 4. [optional] (default: .env) .env file name
+# 5. [optional] (default: false) Create .env file if not exist
 #
 #-----------------------------------------------------------------------
 
@@ -38,15 +39,16 @@ env_update_variable()
     LOCAL_FULL_PATH=${1}
     LOCAL_VARIABLE=${2%=}
     LOCAL_NEW_VALUE=${3}
-    LOCAL_CREATE_IF_NOT_EXIST=${4:-false}
-    LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/${3:-".env"}"
- 
+    LOCAL_ENV_FILE_NAME=${4:-".env"}
+    LOCAL_CREATE_IF_NOT_EXIST=${5:-false}
+    LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/${LOCAL_ENV_FILE_NAME}"
+
     [[ $LOCAL_NEW_VALUE == "" || $LOCAL_NEW_VALUE == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}' \nReplace string: $LOCAL_VARIABLE"
 
     [[ "$DEBUG" == true ]] && echo "Updating in '$LOCAL_ENV_FINAL_FILE' the variable '$LOCAL_VARIABLE' with value '$LOCAL_NEW_VALUE'"
 
     [[ "$LOCAL_CREATE_IF_NOT_EXIST" == true ]] && env_create_if_not_exists $LOCAL_FULL_PATH
-   
+
     if [[ ! -f "$LOCAL_ENV_FINAL_FILE" ]]; then
         REPONSE_ENV_UPDATE_VARIABLE="File '$LOCAL_ENV_FINAL_FILE' does not exist."
         return 0
