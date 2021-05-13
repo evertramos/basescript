@@ -41,12 +41,15 @@ proxy_check_url_active()
 
     [[ "$DEBUG" == true ]] && echo "Checking if the URL '$LOCAL_URL' is running in the Proxy."
 
-    if [[ $LOCAL_PROXY_SERVICE == "nginx-proxy" ]]; then
-        # nginx-proxy
+    case "$LOCAL_PROXY_SERVICE" in
+        "nginx-proxy")
         LOCAL_CHECK_URL_ACTIVE_PROXY=$(cat $PROXY_FOLDER/data/conf.d/default.conf | grep "upstream $LOCAL_URL" | wc -l)
-    else
+        shift 2
+        ;;
+        *)
         echoerror "The proxy service '$LOCAL_PROXY_SERVICE' is not supported by this function [${FUNCNAME[0]}]"
-    fi
+        ;;
+    esac
 
     if [[ $LOCAL_CHECK_URL_ACTIVE_PROXY > 0 ]]; then
         DOMAIN_ACTIVE_IN_PROXY=true
@@ -56,3 +59,23 @@ proxy_check_url_active()
 
     return 0
 }
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+
+    FUNCTION_NAME=proxy_check_url_active
+
+    BASESCRIPT_LOG_ALL_ACTIONS=false
+    source ./../messages/message-echoout.sh
+    source ./../init/color.sh
+    source ./../init/symbol.sh
+    LOCAL_RESULT=$($FUNCTION_NAME $1 $2 2>&1)
+
+    RETURN_CODE=$?
+    if [[ $LOCAL_RESULT == *"ERRO"* ]] || [[ $LOCAL_RESULT == *"erro"* ]] || [[ "$RETURN_CODE" != 0 ]]; then
+        printf "${red}$cross Error\n${reset}"
+        printf "Function: '$FUNCTION_NAME'\nOutput:\n$LOCAL_RESULT\n"
+    else
+        printf "${green}$check test passed!\n${reset}"
+    fi
+fi
+
