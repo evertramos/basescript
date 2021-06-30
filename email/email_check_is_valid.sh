@@ -38,7 +38,7 @@ email_check_is_valid()
     # Check required
     [[ $LOCAL_EMAIL_ADDRESS == "" || $LOCAL_EMAIL_ADDRESS == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
-    if [[ $LOCAL_EMAIL_ADDRESS =~ ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]+)?$ ]]; then
+    if [[ $LOCAL_EMAIL_ADDRESS =~ ^[À-úa-zA-Z0-9.!\#\$\%\&\'\*+\/=?^_\`{|}~-]+@[À-úa-zA-Z0-9](?:[À-úa-zA-Z0-9-]{0,61}[À-úa-zA-Z0-9])?(?:\.[À-úa-zA-Z0-9](?:[À-úa-zA-Z0-9-]{0,61}[À-úa-zA-Z0-9])?)*$ ]]; then
         EMAIL_IS_VALID=true
     else
         EMAIL_IS_VALID=false
