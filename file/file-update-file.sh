@@ -38,13 +38,14 @@
 
 file_update_file()
 {
-    local LOCAL_FULL_FILE_PATH LOCAL_FROM_STRING LOCAL_TO_STRING LOCAL_STOP_EXECUTION_ON_ERROR LOCAL_UPDATE_VARIABLE_VALUE
+    local LOCAL_FULL_FILE_PATH LOCAL_FROM_STRING LOCAL_TO_STRING LOCAL_STOP_EXECUTION_ON_ERROR LOCAL_UPDATE_VARIABLE_VALUE LOCAL_ALLOW_RUN_WITH_SUDO LOCAL_RUN_WITH_SUDO
 
     LOCAL_FULL_FILE_PATH=${1:-null}
     LOCAL_FROM_STRING=${2:-null}
     LOCAL_TO_STRING=${3:-null}
     LOCAL_STOP_EXECUTION_ON_ERROR=${4:-false}
     LOCAL_UPDATE_VARIABLE_VALUE=${5:-false} 
+    LOCAL_ALLOW_RUN_WITH_SUDO=${ALLOW_RUN_WITH_SUDO:-true}
 
     # Check required 
     [[ $LOCAL_TO_STRING == "" || $LOCAL_TO_STRING == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
@@ -54,14 +55,17 @@ file_update_file()
 
     # Debug message 
     [[ "$DEBUG" == true ]] && echo "Replace '$LOCAL_FROM_STRING' to '$LOCAL_TO_STRING' in '$LOCAL_FULL_FILE_PATH'."
-    
+
+    # Allows 'sudo' to run this function if destination path it's not owned by the current user
+    [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == true ]] && ! system_check_user_folder_owner ${LOCAL_FULL_FILE_PATH%/*} && LOCAL_RUN_WITH_SUDO=sudo
+
     cd $(dirname $LOCAL_FULL_FILE_PATH) >/dev/null 2>&1
     if [[ "$LOCAL_UPDATE_VARIABLE_VALUE" == true ]]; then
         # To remove dots (.) use the line below
-#        sed -i "/$LOCAL_FROM_STRING=/c\\$LOCAL_FROM_STRING=${LOCAL_TO_STRING//.}" $LOCAL_FULL_FILE_PATH
-        sed -i "/$LOCAL_FROM_STRING=/c\\$LOCAL_FROM_STRING=$LOCAL_TO_STRING" $LOCAL_FULL_FILE_PATH
+#        $LOCAL_RUN_WITH_SUDO sed -i "/$LOCAL_FROM_STRING=/c\\$LOCAL_FROM_STRING=${LOCAL_TO_STRING//.}" $LOCAL_FULL_FILE_PATH
+        $LOCAL_RUN_WITH_SUDO sed -i "/$LOCAL_FROM_STRING=/c\\$LOCAL_FROM_STRING=$LOCAL_TO_STRING" $LOCAL_FULL_FILE_PATH
     else
-        sed -i -e "s/$LOCAL_FROM_STRING/$LOCAL_TO_STRING/g" $LOCAL_FULL_FILE_PATH
+        $LOCAL_RUN_WITH_SUDO sed -i -e "s/$LOCAL_FROM_STRING/$LOCAL_TO_STRING/g" $LOCAL_FULL_FILE_PATH
     fi
     cd - > /dev/null 2>&1
 }

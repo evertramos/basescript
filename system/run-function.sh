@@ -41,7 +41,9 @@ run_function()
 
     # Check $SILENT mode
     if [[ "$SILENT" == true ]]; then
-        if [[ ! -z $5 ]]; then
+        if [[ ! -z $6 ]]; then
+            $1 "$2" "$3" "$4" "$5" "$6"
+        elif [[ ! -z $5 ]]; then
             $1 "$2" "$3" "$4" "$5"
         elif [[ ! -z $4 ]]; then
             $1 "$2" "$3" "$4"
@@ -55,7 +57,9 @@ run_function()
     else
         # Call the specified function
         if [[ -n "$(type -t "$1")" ]] && [[ "$(type -t "$1")" = function ]]; then
-            if [[ ! -z $5 ]]; then
+            if [[ ! -z $6 ]]; then
+                $1 "$2" "$3" "$4" "$5" "$6"
+            elif [[ ! -z $5 ]]; then
                 $1 "$2" "$3" "$4" "$5"
             elif [[ ! -z $4 ]]; then
                 $1 "$2" "$3" "$4"

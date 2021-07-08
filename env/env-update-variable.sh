@@ -45,16 +45,9 @@ env_update_variable()
 
     [[ $LOCAL_NEW_VALUE == "" || $LOCAL_NEW_VALUE == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}' \nReplace string: $LOCAL_VARIABLE"
 
-    [[ "$DEBUG" == true ]] && echo "Updating in '$LOCAL_ENV_FINAL_FILE' the variable '$LOCAL_VARIABLE' with value '$LOCAL_NEW_VALUE'"
-
+    [[ "$DEBUG" == true ]] && echo "[env_update_variable] Create '$LOCAL_ENV_FINAL_FILE' at '$LOCAL_FULL_PATH' if it does not exists."
     [[ "$LOCAL_CREATE_IF_NOT_EXIST" == true ]] && env_create_if_not_exists $LOCAL_FULL_PATH
 
-    if [[ ! -f "$LOCAL_ENV_FINAL_FILE" ]]; then
-        REPONSE_ENV_UPDATE_VARIABLE="File '$LOCAL_ENV_FINAL_FILE' does not exist."
-        return 0
-    fi
-
-    sed -i '/'"$LOCAL_VARIABLE"'/c\'"$LOCAL_VARIABLE=$LOCAL_NEW_VALUE"'' $LOCAL_ENV_FINAL_FILE
-
-    return 0
+    [[ "$DEBUG" == true ]] && echo "[env_update_variable] Updating in '$LOCAL_ENV_FINAL_FILE' the variable '$LOCAL_VARIABLE' with value '$LOCAL_NEW_VALUE'"
+    file_update_file $LOCAL_ENV_FINAL_FILE $LOCAL_VARIABLE $LOCAL_NEW_VALUE true true
 }

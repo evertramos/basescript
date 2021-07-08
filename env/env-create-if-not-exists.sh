@@ -42,9 +42,11 @@ env_create_if_not_exists()
 
     [[ $LOCAL_FULL_PATH == "" || $LOCAL_FULL_PATH == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
-    [[ -f "$LOCAL_FULL_PATH" ]] && return 0
+    [[ "$DEBUG" == true ]] && echo "[env_create_if_not_exists] Checking if file '$LOCAL_ENV_FINAL_FILE' already exists."
+    [[ -f "$LOCAL_ENV_FINAL_FILE" ]] && return 0
      
-    [[ "$DEBUG" == true ]] && echo "Creating file '$LOCAL_FULL_PATH'"
+    [[ "$DEBUG" == true ]] && echo "Creating file '$LOCAL_ENV_FINAL_FILE' from '$LOCAL_ENV_EXAMPLE_FILE'."
     
     cp $LOCAL_ENV_EXAMPLE_FILE $LOCAL_ENV_FINAL_FILE
+    [[ ! -f "$LOCAL_ENV_FINAL_FILE" ]] && sudo cp $LOCAL_ENV_EXAMPLE_FILE $LOCAL_ENV_FINAL_FILE
 }

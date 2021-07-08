@@ -53,8 +53,7 @@ git_clone_repo()
     # Prepare the FULL_PATH with LOCAL_GIT_FOLDER_NAME
     [[ $LOCAL_GIT_FOLDER_NAME != "" ]] && LOCAL_FULL_PATH=${LOCAL_FULL_PATH%/}"/"$LOCAL_GIT_FOLDER_NAME
 
-    [[ "$DEBUG" == true ]] && echo "Cloning repo '$LOCAL_GIT_REPO' branch '$LOCAL_REPO_BRANCH' to '$LOCAL_FULL_PATH'."
-
+    [[ "$DEBUG" == true ]] && echo "[git_clone_repo] Testing if repo '$LOCAL_GIT_REPO' on branch '$LOCAL_REPO_BRANCH' is accesible."
     LOCAL_GIT_REPO_ONLINE=$(git ls-remote --exit-code --quiet ${LOCAL_GIT_REPO} --tags ${LOCAL_REPO_BRANCH})
     LOCAL_GIT_REPO_ONLINE=$?
     if [[ $LOCAL_GIT_REPO_ONLINE != 0 ]]; then
@@ -62,11 +61,23 @@ git_clone_repo()
         return 0
     fi
 
-    mkdir -p $LOCAL_FULL_PATH
+    [[ "$DEBUG" == true ]] && echo "[git_clone_repo] Creating folder '$LOCAL_FULL_PATH'."
+    mkdir -p $LOCAL_FULL_PATH > /dev/null 2>&1
+    [[ ! -d "$LOCAL_FULL_PATH" ]] && sudo mkdir -p $LOCAL_FULL_PATH > /dev/null 2>&1
+    [[ ! -d "$LOCAL_FULL_PATH" ]] && RESPONSE_GIT_CLONE_REPO="Error creating folder '$LOCAL_FULL_PATH'" && return 0
+
+    [[ "$DEBUG" == true ]] && echo "[git_clone_repo] Cloning repo '$LOCAL_GIT_REPO' branch '$LOCAL_REPO_BRANCH' to '$LOCAL_FULL_PATH'."
     if [[ "$LOCAL_FULL_REPO" == true ]]; then
         git clone --branch $LOCAL_REPO_BRANCH $LOCAL_GIT_REPO $LOCAL_FULL_PATH > /dev/null 2>&1
     else
         git clone --depth 1 --branch $LOCAL_REPO_BRANCH $LOCAL_GIT_REPO $LOCAL_FULL_PATH > /dev/null 2>&1
+    fi
+    if [[ ! -f "${LOCAL_FULL_PATH%/}/.env" ]]; then
+      if [[ "$LOCAL_FULL_REPO" == true ]]; then
+          sudo git clone --branch $LOCAL_REPO_BRANCH $LOCAL_GIT_REPO $LOCAL_FULL_PATH > /dev/null 2>&1
+      else
+          sudo git clone --depth 1 --branch $LOCAL_REPO_BRANCH $LOCAL_GIT_REPO $LOCAL_FULL_PATH > /dev/null 2>&1
+      fi
     fi
 
     return 0
