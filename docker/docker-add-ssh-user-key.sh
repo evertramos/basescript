@@ -21,32 +21,31 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Check if a username already exists in a specific container
+# 1. Add user's pub key to authorized_keys in a container
 #
 # You must/might inform the parameters below:
-# 1. Container name to check if a user already exists
-# 2. Username that should be checked
+# 1. Container name
+# 2. Key string
+# 3. [optional] (default: )
 #
 #-----------------------------------------------------------------------
 
-docker_check_user_exists_in_container()
+docker_add_ssh_key_to_main_user()
 {
-    local LOCAL_SSH_CONTAINER LOCAL_USER_NAME LOCAL_RESULT
+    local LOCAL_CONTAINER LOCAL_SSH_KEY
 
-    LOCAL_SSH_CONTAINER="${1:-null}"
-    LOCAL_USER_NAME=${2:-null}
+    LOCAL_CONTAINER="${1:-null}"
+    LOCAL_SSH_KEY="${2:-null}"
 
-    [[ $LOCAL_USER_NAME == "" || $LOCAL_USER_NAME == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_SSH_KEY == "" || $LOCAL_SSH_KEY == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" == true ]] && echo "Checking if user '$LOCAL_USER_NAME' exists in '$LOCAL_SSH_CONTAINER'"
+    [[ "$DEBUG" == true ]] && echo "Adding key to container '$LOCAL_CONTAINER'"
 
-    LOCAL_RESULT=$(docker exec -it $LOCAL_SSH_CONTAINER id -u $LOCAL_USER_NAME > /dev/null 2>&1; echo $?)
+    docker exec -it $LOCAL_CONTAINER bash -c "cd && mkdir -p .ssh"
+    docker exec -it $LOCAL_CONTAINER bash -c "cd && chmod 600 .ssh"
+    docker exec -it $LOCAL_CONTAINER bash -c "cd && echo ${LOCAL_SSH_KEY} >> .ssh/authorized_keys"
+    docker exec -it $LOCAL_CONTAINER bash -c "cd && chmod 600 .ssh/authorized_keys"
 
-    # Check results
-    if [[ "$LOCAL_RESULT" == 0 ]]; then
-        DOCKER_USER_EXISTS_IN_CONTAINER=true
-    else
-        DOCKER_USER_EXISTS_IN_CONTAINER=false
-    fi
+    return 0
 }
 

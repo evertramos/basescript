@@ -35,7 +35,7 @@ docker_add_user_with_key()
     
     LOCAL_CONTAINER=${1:-null}
     LOCAL_USER_NAME=${2:-null}
-    LOCAL_SSH_KEY=${3:-null}
+    LOCAL_SSH_KEY="${3:-null}"
 
     [[ $LOCAL_SSH_KEY == "" || $LOCAL_SSH_KEY == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
@@ -58,7 +58,7 @@ docker_add_user_with_key()
 
     docker exec -it $LOCAL_CONTAINER su -c "echo $LOCAL_SSH_KEY >> /home/$LOCAL_USER_NAME/.ssh/authorized_keys" $LOCAL_USER_NAME
     
-    docker exec -it $LOCAL_CONTAINER chmod 600 /home/$LOCAL_USER_NAME/.ssh
-    docker exec -it $LOCAL_CONTAINER chmod 600 /home/$LOCAL_USER_NAME/.ssh/config
+    docker exec -it $LOCAL_CONTAINER chmod 700 /home/$LOCAL_USER_NAME/.ssh
+    docker exec -it $LOCAL_CONTAINER chmod 644 /home/$LOCAL_USER_NAME/.ssh/config
     docker exec -it $LOCAL_CONTAINER chmod 600 /home/$LOCAL_USER_NAME/.ssh/authorized_keys
 }

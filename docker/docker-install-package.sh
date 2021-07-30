@@ -21,32 +21,31 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Check if a username already exists in a specific container
+# 1. Install a package inside a container
 #
 # You must/might inform the parameters below:
-# 1. Container name to check if a user already exists
-# 2. Username that should be checked
+# 1. Container where the package should be installed
+# 2. The package name which should be installed
 #
 #-----------------------------------------------------------------------
 
-docker_check_user_exists_in_container()
+docker_install_package_with_apt()
 {
-    local LOCAL_SSH_CONTAINER LOCAL_USER_NAME LOCAL_RESULT
+    local LOCAL_CONTAINER LOCAL_PACKAGE_NAME LOCAL_RESULT
 
-    LOCAL_SSH_CONTAINER="${1:-null}"
-    LOCAL_USER_NAME=${2:-null}
+    LOCAL_CONTAINER="${1:-null}"
+    LOCAL_PACKAGE_NAME="${2:-null}"
 
-    [[ $LOCAL_USER_NAME == "" || $LOCAL_USER_NAME == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_PACKAGE_NAME == "" || $LOCAL_PACKAGE_NAME == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" == true ]] && echo "Checking if user '$LOCAL_USER_NAME' exists in '$LOCAL_SSH_CONTAINER'"
+    [[ "$DEBUG" == true ]] && echo "Installing package '$LOCAL_PACKAGE_NAME' in container '$LOCAL_CONTAINER'"
+    docker exec -it $LOCAL_CONTAINER apt update
+    docker exec -it $LOCAL_CONTAINER apt install -y --no-install-recommends "$LOCAL_PACKAGE_NAME"
 
-    LOCAL_RESULT=$(docker exec -it $LOCAL_SSH_CONTAINER id -u $LOCAL_USER_NAME > /dev/null 2>&1; echo $?)
+    [[ "$DEBUG" == true ]] && echo "Clean up apt"
+    docker exec -it $LOCAL_CONTAINER rm -rf /var/lib/apt/lists/*
+    docker exec -it $LOCAL_CONTAINER apt clean
 
-    # Check results
-    if [[ "$LOCAL_RESULT" == 0 ]]; then
-        DOCKER_USER_EXISTS_IN_CONTAINER=true
-    else
-        DOCKER_USER_EXISTS_IN_CONTAINER=false
-    fi
+    return 0
 }
 
