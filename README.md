@@ -23,11 +23,14 @@ We designed a standard way for naming functions, which should start the function
 is under the './domain' folder the function will start with 'domain_'. We try to be as much verbose as possible for better
 understanding "the function function".
 
-## Response
+## Function responses
 
-The response from the functions will follow the function name which was called, for the 'check' 
-functions the 'check' string will be removed in the reply, this way we can have a standard and 
-the user will know the exact response from the function without a need to open and review it:
+All function's responses will be in capital letter and the most commom 'rule' will be to remove the wildcard word from
+the response, such as 'check', 'get' and 'put'. 
+
+#### Check functions
+
+Responses will be the function's name without the word 'check': 
 
 ```bash
 docker_check_container_is_running()
@@ -36,10 +39,26 @@ docker_check_container_is_running()
     DOCKER_CONTAINER_IS_RUNNING=true
 }
 ```
-> The response has the same name of the function, but without the string 'check' and all capital letter.
+
+#### Confirm functions
+
+Responses will be the function's name without the word 'confirm' and '_RESPONSE' at the end of the string:
+
+```bash
+confirm_user_action()
+{
+    [...]
+    USER_ACTION_RESPONSE=true
+}
+```
+
+> This was one of the first functions we created so, we will try to keep it simple next functions, but must keep that for 
+> compatibility purposes
 
 
-***** GET FUNCIONS AS WELL 
+
+
+***** GET FUNCTIONS AS WELL 
 
 ip_get_external_ipv4 example returns IP_EXTERNAL_IPV4
 
