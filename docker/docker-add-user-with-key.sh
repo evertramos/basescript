@@ -47,7 +47,7 @@ docker_add_user_with_key()
 
     #docker exec -it $LOCAL_CONTAINER adduser -D -h /home/$LOCAL_USER_NAME/ $LOCAL_USER_NAME $LOCAL_USER_NAME
     # We have used this option '-k /home_user' in order to accomplish the config file to use root user to access site's container
-    # This option is in the repo https://github.com/evertramos/docker-ssh-manager
+    # This option is in the repo https://github.com/evertramos/docker-ssh-bastion
     docker exec -it $LOCAL_CONTAINER adduser -D -h /home/$LOCAL_USER_NAME/ -k /home_user $LOCAL_USER_NAME $LOCAL_USER_NAME
 
     docker exec -it $LOCAL_CONTAINER usermod --password "$LOCAL_KEY_PASSWORD" $LOCAL_USER_NAME
