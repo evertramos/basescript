@@ -92,7 +92,7 @@ echosuccess()
   [[ "$LOCAL_LOG_ACTION" == true ]] && log "[SUCCESS MESSAGE] $@"
 
   # Check $SILENT mode
-  [[ "$SILENT" != true ]] && printf " ${green}${check} success${reset}${yellow} ${1//\\n/\\n   }${reset}\n" 1>&2;
+  [[ "$SILENT" != true ]] && printf " ${green}${check} success${reset}${cyan} ${1//\\n/\\n   }${reset}\n" 1>&2;
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
