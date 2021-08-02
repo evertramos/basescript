@@ -32,10 +32,10 @@
 
 docker_delete_user()
 {
-    local LOCAL_USER_NAME LOCAL_CONTAINER
+    local LOCAL_CONTAINER LOCAL_USER_NAME
     
-    LOCAL_USER_NAME=${1:-null}
-    LOCAL_CONTAINER=${2:-null}
+    LOCAL_CONTAINER=${1:-null}
+    LOCAL_USER_NAME=${2:-null}
 
     [[ $LOCAL_CONTAINER == "" || $LOCAL_CONTAINER == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
