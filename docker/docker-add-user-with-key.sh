@@ -21,11 +21,13 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Add a user its own ssh key in a container
+# 1. Add a user with an ssh key in a container
 #
 # You must/might inform the parameters below:
-# 1.
-# 2. [optional] (default: )
+# 1. Container name
+# 2. Username
+# 3. Key string
+# 4. [optional] (default: )
 #
 #-----------------------------------------------------------------------
 
