@@ -38,7 +38,7 @@ select_multiple_data()
     [[ "$DEBUG" == true ]] && echo "Multiselect data for the user."
 
     # The codes below were adapted from: https://serverfault.com/questions/144939/multi-select-menu-in-bash-script
-    prompt="${purple}Check an option (again to uncheck, ENTER when done): ${reset}"
+    prompt="${cyan}Check an option (again to uncheck, ENTER when done): ${reset}"
     while menu_multiselect && read -rp "$prompt" num && [[ "$num" ]]; do
         [[ "$num" != *[![:digit:]]* ]] &&
         (( num > 0 && num <= ${#GLOBAL_MULTIDATA_SELECT_DATA[@]} )) ||
@@ -74,16 +74,16 @@ select_multiple_data()
 # ----------------------------------------------------------------------------
 menu_multiselect()
 {
-    echo "${purple}-----------------------------------------------------${reset}"
+    echo "${cyan}-----------------------------------------------------${reset}"
     echo 
-    echo "${purple}Avaliable options:${reset}"
+    echo "${cyan}Avaliable options:${reset}"
     echo 
 
     for i in ${!GLOBAL_MULTIDATA_SELECT_DATA[@]}; do
         if [[ ${choices[i]} == "+" ]]; then
             printf "${green}%3d%s) %s\n" $((i+1)) "${choices[i]:-}" "${GLOBAL_MULTIDATA_SELECT_DATA[i]}${reset}"
         else
-            printf "${purple}%3d%s) %s\n" $((i+1)) "${choices[i]:-}" "${GLOBAL_MULTIDATA_SELECT_DATA[i]}${reset}"
+            printf "${cyan}%3d%s) %s\n" $((i+1)) "${choices[i]:-}" "${GLOBAL_MULTIDATA_SELECT_DATA[i]}${reset}"
         fi
     done
     [[ "$msg" ]] && echo "$msg"; :
