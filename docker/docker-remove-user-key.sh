@@ -26,7 +26,7 @@
 # You must/might inform the parameters below:
 # 1. Container name
 # 2. Username
-# 3. [optional] Skip on error (default: false)
+# 3. [optional] (default:)
 #
 #-----------------------------------------------------------------------
 
@@ -36,15 +36,16 @@ docker_remove_user_ssh_key()
 
     LOCAL_CONTAINER="${1:-null}"
     LOCAL_USER_NAME="${2:-null}"
-    LOCAL_SKIP_ON_ERROR="${3:-false}"
 
     [[ $LOCAL_CONTAINER == "" ]] && echoerror "You must inform a container to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Removing $LOCAL_USER_NAME's key in $LOCAL_CONTAINER"
 
-    if [[ "$SILENT" == true ]] || [[ "$LOCAL_SKIP_ON_ERROR" == true ]]; then
+    if [[ "$SILENT" == true ]]; then
         docker exec -it $LOCAL_CONTAINER bash -c "cd && sed -i '\| $LOCAL_USER_NAME@|d' .ssh/authorized_keys" 2>&1 > /dev/null
     else
         docker exec -it $LOCAL_CONTAINER bash -c "cd && sed -i '\| $LOCAL_USER_NAME@|d' .ssh/authorized_keys"
     fi
+
+    return 0
 }
