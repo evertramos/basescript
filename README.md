@@ -1,8 +1,12 @@
-# Base Scripts | 🚧 Work in progress
+# Base Scripts | Work in progress 🚧
 
 Some handy scripts to make your life easier. 
 
-> All scripts were desgined to run in bash. Hum... right, You might ask about _shebang_... yes I used absolute path in all scripts '/bin/bash'. Yes, there is discussions on that matter, but if you don't have bash, you probably know some tricks to update all files at once, right? If not I will provide you a way to do that, if you have _sed_ at least.
+## Video tutorials 
+
+Oh yeah! We do have some handy tips in our channel on [Youtube](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ), check it out:
+
+[![youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ)
 
 ## Thoughts
 
@@ -77,6 +81,14 @@ There will be a specific page for documentation and samples of every function in
 Please check
 
 [Docs](docs/README.md)
+
+## Security Vulnerability ✋
+
+If you find any security vulnerability, please DO NOT open an issue, send an email to [evert.ramos@gmail.com](mailto:evert.ramos@gmail.com).
+
+### Shebang 
+
+- All scripts were desgined to run in bash. Hum... right, You might ask about _shebang_... yes I used absolute path in all scripts '/bin/bash'. Yes, there is discussions on that matter, but if you don't have bash, you probably know some tricks to update all files at once, right? If not I will provide you a way to do that, if you have _sed_ at least.
 
 # Support this project at [Patreon](https://www.patreon.com/evertramos)
 [https://www.patreon.com/evertramos](https://www.patreon.com/evertramos)
