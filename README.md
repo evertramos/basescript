@@ -2,9 +2,9 @@
 
 Some handy scripts to make your life easier. 
 
-## Video tutorials 
+## Video tutorials | Work in progress 🚧
 
-Oh yeah! We do have some handy tips in our channel on [Youtube](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ), check it out:
+Oh yeah! We **WILL** have some handy tips in our channel on [Youtube](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ), check it out:
 
 [![youtube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCN5wb0eA3ZLlvJNYo23qBRQ)
 
