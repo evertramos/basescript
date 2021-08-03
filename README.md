@@ -1,10 +1,8 @@
-# ⚠️ WORK IN PROGRESS ⚠️
-
-# Base Scripts 
+# Base Scripts | 🚧 Work in progress
 
 Some handy scripts to make your life easier. 
 
-> All scripts were desgined to run in bash. Hum... right, You might ask about _shebang_... yes I used absolute path in all scripts '/bin/bash'. Yes, there is discussions on that matter, but if you plan to use it and don't use bash, you probably know some tricks to update all files at once, right? If not I will provide you a way to do that, if you have _sed_ at least.
+> All scripts were desgined to run in bash. Hum... right, You might ask about _shebang_... yes I used absolute path in all scripts '/bin/bash'. Yes, there is discussions on that matter, but if you don't have bash, you probably know some tricks to update all files at once, right? If not I will provide you a way to do that, if you have _sed_ at least.
 
 ## Thoughts
 
