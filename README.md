@@ -1,4 +1,4 @@
-# Base Scripts | Work in progress 🚧
+# Base Scripts 📡 | Work in progress 🚧
 
 Some handy scripts to make your life easier. 
 
