@@ -38,7 +38,7 @@
 
 file_update_file()
 {
-    local LOCAL_FULL_FILE_PATH LOCAL_FROM_STRING LOCAL_TO_STRING LOCAL_STOP_EXECUTION_ON_ERROR LOCAL_UPDATE_VARIABLE_VALUE LOCAL_ALLOW_RUN_WITH_SUDO LOCAL_RUN_WITH_SUDO
+    local LOCAL_FULL_FILE_PATH LOCAL_FROM_STRING LOCAL_TO_STRING LOCAL_STOP_EXECUTION_ON_ERROR LOCAL_UPDATE_VARIABLE_VALUE LOCAL_ALLOW_RUN_WITH_SUDO LOCAL_RUN_WITH_SUDO LOCAL_PATH
 
     LOCAL_FULL_FILE_PATH=${1:-null}
     LOCAL_FROM_STRING=${2:-null}
@@ -46,6 +46,7 @@ file_update_file()
     LOCAL_STOP_EXECUTION_ON_ERROR=${4:-false}
     LOCAL_UPDATE_VARIABLE_VALUE=${5:-false} 
     LOCAL_ALLOW_RUN_WITH_SUDO=${ALLOW_RUN_WITH_SUDO:-true}
+    LOCAL_PATH=$(dirname ${LOCAL_FULL_FILE_PATH})
 
     # Check required 
     [[ $LOCAL_TO_STRING == "" || $LOCAL_TO_STRING == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
@@ -54,12 +55,15 @@ file_update_file()
     [[ ! -f $LOCAL_FULL_FILE_PATH ]] && [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && echoerror "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \n Please inform the correct location and try again (function: ${FUNCNAME[0]})."
 
     # Debug message 
-    [[ "$DEBUG" == true ]] && echo "Replace '$LOCAL_FROM_STRING' to '$LOCAL_TO_STRING' in '$LOCAL_FULL_FILE_PATH'."
+    [[ "$DEBUG" == true ]] && echoline "Replace '$LOCAL_FROM_STRING' to '$LOCAL_TO_STRING' in '$LOCAL_FULL_FILE_PATH'."
 
     # Allows 'sudo' to run this function if destination path it's not owned by the current user
     [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == true ]] && ! system_check_user_folder_owner ${LOCAL_FULL_FILE_PATH%/*} && LOCAL_RUN_WITH_SUDO=sudo
 
-    cd $(dirname $LOCAL_FULL_FILE_PATH) >/dev/null 2>&1
+    # cd $(dirname $LOCAL_FULL_FILE_PATH) >/dev/null 2>&1
+    cd $LOCAL_PATH >/dev/null 2>&1
+    [[ $(pwd) != $LOCAL_PATH ]] && echoerror "It seems the directory $LOCAL_PATH is not accessible - function: '${FUNCNAME[0]}'"
+
     if [[ "$LOCAL_UPDATE_VARIABLE_VALUE" == true ]]; then
         # To remove dots (.) use the line below
 #        $LOCAL_RUN_WITH_SUDO sed -i "/$LOCAL_FROM_STRING=/c\\$LOCAL_FROM_STRING=${LOCAL_TO_STRING//.}" $LOCAL_FULL_FILE_PATH
