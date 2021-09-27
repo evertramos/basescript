@@ -57,7 +57,7 @@ system_safe_delete_folder()
         LOCAL_SAFE_DELETE_FOLDER_BASE_PATH=${LOCAL_SAFE_DELETE_FOLDER#/}
         LOCAL_SAFE_DELETE_FOLDER_BASE_PATH=${LOCAL_SAFE_DELETE_FOLDER_BASE_PATH%%/*}
         [[ $LOCAL_SAFE_DELETE_FOLDER_BASE_PATH == *"."* ]] || [[ $LOCAL_SAFE_DELETE_FOLDER_BASE_PATH == *"/"* ]] && echoerror "Gotcha you! You action did not pass our safe deletion mode,\nthe path can not contain dots (.) or be null, which implies a system root folder."
-        [[ $LOCAL_ALLOWED_DELETE_BASE_PATH != "/$LOCAL_SAFE_DELETE_FOLDER_BASE_PATH" ]] && echoerror "You are not authorized to delete '$LOCAL_SAFE_DELETE_FOLDER'"
+        [[ $LOCAL_ALLOWED_DELETE_BASE_PATH != ${LOCAL_SAFE_DELETE_FOLDER:0:${#LOCAL_ALLOWED_DELETE_BASE_PATH}} ]] && echoerror "You are not authorized to delete '$LOCAL_SAFE_DELETE_FOLDER'"
     fi
 
     [[ "$DEBUG" == true ]] && echowarning "Deleting folder '$LOCAL_SAFE_DELETE_FOLDER'"
