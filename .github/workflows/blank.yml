@@ -28,6 +28,13 @@ jobs:
       # Runs a single command using the runners shell
       # - name: Run a one-line script
       #  run: echo Hello, world!
+      
+      # Get the latest version (semver)
+      - name: Get last version released
+        run: echo '::set-output LAST_RELEASE_TAG=$(git tag | tail -1)'
+        id: last-release-tag
+      - name: Get last release tag
+        run: echo "The last release tag is ${{ steps.lat-release-tag.outputs.LAST_RELEASE_TAG }}"
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
