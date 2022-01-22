@@ -31,9 +31,9 @@ jobs:
       
       # Get the latest version (semver)
       - name: Get last version released
-        run: echo '::set-output LAST_RELEASE_TAG=$(git tag | tail -1)'
+        run: echo '::set-output name=last-release-tag=$(git tag | tail -1)'
         id: last-release-tag
-        shell: bash
+        #shell: bash
       - name: Get last release tag
         run: echo "The last release tag is ${{ steps.lat-release-tag.outputs.LAST_RELEASE_TAG }}"
 
