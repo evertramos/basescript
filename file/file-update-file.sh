@@ -53,6 +53,13 @@ file_update_file()
     # Check if file exists | exit if 4th parameter is set to 'true'
     [[ ! -f $LOCAL_FULL_FILE_PATH ]] && [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && echoerror "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \n Please inform the correct location and try again (function: ${FUNCNAME[0]})."
 
+    # Stop execution and return error if "$LOCAL_STOP_EXECUTION_ON_ERROR" is false
+    if [[ ! -f $LOCAL_FULL_FILE_PATH ]]; then
+        echoerror "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \n Please inform the correct location and try again (function: ${FUNCNAME[0]})." false
+        FILE_UPDATE_FILE_ERROR=true
+        return 0
+    fi
+
     # Debug message 
     [[ "$DEBUG" == true ]] && echoline "Replace '$LOCAL_FROM_STRING' to '$LOCAL_TO_STRING' in '$LOCAL_FULL_FILE_PATH'."
 
