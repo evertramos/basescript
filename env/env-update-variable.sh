@@ -34,7 +34,7 @@
 
 env_update_variable()
 {
-    local LOCAL_FULL_PATH LOCAL_VARIABLE LOCAL_NEW_VALUE LOCAL_CREATE_IF_NOT_EXIST LOCAL_ENV_FINAL_FILE
+    local LOCAL_FULL_PATH LOCAL_VARIABLE LOCAL_NEW_VALUE LOCAL_CREATE_IF_NOT_EXIST LOCAL_ENV_FINAL_FILE LOCAL_STOP_EXECUTION_ON_ERROR
 
     LOCAL_FULL_PATH=${1}
     LOCAL_VARIABLE=${2%=}
@@ -42,6 +42,7 @@ env_update_variable()
     LOCAL_ENV_FILE_NAME=${4:-".env"}
     LOCAL_CREATE_IF_NOT_EXIST=${5:-false}
     LOCAL_ENV_FINAL_FILE="${LOCAL_FULL_PATH%/}/${LOCAL_ENV_FILE_NAME}"
+    LOCAL_STOP_EXECUTION_ON_ERROR=${6:-false}
 
     [[ $LOCAL_NEW_VALUE == "" || $LOCAL_NEW_VALUE == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}' \nReplace string: $LOCAL_VARIABLE"
 
@@ -49,5 +50,9 @@ env_update_variable()
     [[ "$LOCAL_CREATE_IF_NOT_EXIST" == true ]] && env_create_if_not_exists $LOCAL_FULL_PATH
 
     [[ "$DEBUG" == true ]] && echo "[env_update_variable] Updating in '$LOCAL_ENV_FINAL_FILE' the variable '$LOCAL_VARIABLE' with value '$LOCAL_NEW_VALUE'"
-    file_update_file $LOCAL_ENV_FINAL_FILE $LOCAL_VARIABLE $LOCAL_NEW_VALUE true true
+    file_update_file $LOCAL_ENV_FINAL_FILE $LOCAL_VARIABLE $LOCAL_NEW_VALUE $LOCAL_STOP_EXECUTION_ON_ERROR true
+
+    if [[ "$FILE_UPDATE_FILE_ERROR" == true ]]; then
+        ENV_UPDATE_VARIABLE_ERROR=true
+    fi
 }
