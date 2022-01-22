@@ -33,6 +33,7 @@ jobs:
       - name: Get last version released
         run: echo '::set-output LAST_RELEASE_TAG=$(git tag | tail -1)'
         id: last-release-tag
+        shell: bash
       - name: Get last release tag
         run: echo "The last release tag is ${{ steps.lat-release-tag.outputs.LAST_RELEASE_TAG }}"
 
