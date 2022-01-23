@@ -38,7 +38,7 @@ jobs:
       - name: Get last version released
         run: echo ::set-output name=LAST_TAG::$(git tag | tail -1)
         id: last_release_tag_on
-        #shell: bash
+        shell: bash
 
       - name: Get last release tag
         run: |
