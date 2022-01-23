@@ -31,11 +31,23 @@ jobs:
       
       # Get the latest version (semver)
       - name: Get last version released
-        run: echo '::set-output name=last::$(git tag | tail -1)'
+        run: echo '::set-output name=LAST::$(git tag | tail -1)'
         id: last_release_tag
         #shell: bash
+
+      - name: Get last version released
+        run: echo ::set-output name=LAST_TAG::$(git tag | tail -1)
+        id: last_release_tag_on
+        #shell: bash
+
       - name: Get last release tag
-        run: echo "The last release tag is ${{ steps.last_release_tag.outputs.LAST }}"
+        run: |
+          echo "The last release tag is ${{ steps.last_release_tag.outputs.LAST }}"
+          echo $LAST_RELEASE
+          echo $LAST_RELEASE_ON
+        env:
+          LAST_RELEASE: ${{ steps.last_release_tag.outputs.LAST }}
+          LAST_RELEASE_ON: ${{ steps.last_release_tag_on.outputs.LAST_TAG }}
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
