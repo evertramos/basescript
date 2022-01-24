@@ -29,6 +29,16 @@
 #
 # ----------------------------------------------------------------------
 
+# Base colors
+#  Black    = setaf 0
+#  Red      = setaf 1
+#  Green    = setaf 2
+#  Yellow   = setaf 3
+#  Blue     = setaf 4
+#  Magenta  = setaf 5
+#  Cyan     = setaf 6
+#  White    = setaf 7
+
 # Colors on output
 black=`tput setaf 0`
 red=`tput setaf 1`

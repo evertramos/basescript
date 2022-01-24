@@ -21,23 +21,27 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1.
+# 1. Start a service inside a container
 #
 # You must/might inform the parameters below:
-# 1.
+# 1. Container where the service should start
 # 2. [optional] (default: )
 #
 #-----------------------------------------------------------------------
 
-function_name()
+docker_start_service_with_service()
 {
-#    local LOCAL_
-   
-#    LOCAL_=${1:-null}
- 
-#    [[ $LOCAL_ == "" || $LOCAL_ == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
- 
-#    [[ "$DEBUG" == true ]] && echowarning ""
-#    [[ "$SILENT" == true ]] && echowarning ""
+    local LOCAL_CONTAINER LOCAL_SERVICE_NAME LOCAL_RESULT
+
+    LOCAL_CONTAINER="${1:-null}"
+    LOCAL_SERVICE_NAME="${2:-null}"
+
+    [[ $LOCAL_SERVICE_NAME == "" || $LOCAL_SERVICE_NAME == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+
+    [[ "$DEBUG" == true ]] && echo "Starting '$LOCAL_SERVICE_NAME' service in container '$LOCAL_CONTAINER'"
+
+    docker exec -it $LOCAL_CONTAINER service "$LOCAL_SERVICE_NAME" start
+
+    return 0
 }
 

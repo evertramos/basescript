@@ -37,6 +37,7 @@ file_uncomment_line_with_string()
     LOCAL_FULL_FILE_PATH="${1:-null}"
     LOCAL_STRING="${2:-null}"
     LOCAL_COMMENT_MARK="${3:-#}"
+    LOCAL_ALLOW_RUN_WITH_SUDO=${ALLOW_RUN_WITH_SUDO:-true}
 
     # Check required 
     [[ $LOCAL_FULL_FILE_PATH == "" || $LOCAL_FULL_FILE_PATH == null || $LOCAL_STRING == "" || $LOCAL_STRING == null ]] && \
@@ -48,5 +49,8 @@ file_uncomment_line_with_string()
     # Debug message 
     [[ "$DEBUG" == true ]] && echo "Uncommenting '$LOCAL_STRING' in '$LOCAL_FULL_FILE_PATH' removing the '$LOCAL_COMMENT_MARK'."
 
-    sed -i '/'"$LOCAL_COMMENT_MARK"'/s/^'"$LOCAL_COMMENT_MARK"'//g' "$LOCAL_FULL_FILE_PATH"
+    # Allows 'sudo' to run this function if destination path it's not owned by the current user
+    [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == true ]] && ! system_check_user_folder_owner ${LOCAL_FULL_FILE_PATH%/*} && LOCAL_RUN_WITH_SUDO=sudo
+
+    $LOCAL_RUN_WITH_SUDO sed -i '/'"$LOCAL_COMMENT_MARK"'/s/^'"$LOCAL_COMMENT_MARK"'//g' "$LOCAL_FULL_FILE_PATH"
 }

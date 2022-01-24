@@ -21,23 +21,27 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1.
+# 1. List all containers running (with filter)
 #
 # You must/might inform the parameters below:
-# 1.
-# 2. [optional] (default: )
+# 1. [optional] String to filter the containers' list (default: )
 #
 #-----------------------------------------------------------------------
 
-function_name()
+docker_list_container()
 {
-#    local LOCAL_
-   
-#    LOCAL_=${1:-null}
- 
-#    [[ $LOCAL_ == "" || $LOCAL_ == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
- 
-#    [[ "$DEBUG" == true ]] && echowarning ""
-#    [[ "$SILENT" == true ]] && echowarning ""
+    local LOCAL_FILTER_STRING
+
+    LOCAL_FILTER_STRING=${1:-null}
+
+    [[ "$DEBUG" == true ]] && echo "Listing all contianers with '$LOCAL_FILTER_STRING' extension."
+
+    if [[ ! "$LOCAL_FILTER_STRING" == null ]]; then
+        DOCKER_LIST_CONTAINER_RESPONSE=($(docker ps --filter name="$LOCAL_FILTER_STRING" --format "{{.Names}}"))
+    else
+        DOCKER_LIST_CONTAINER_RESPONSE=($(docker ps --format "{{.Names}}"))
+    fi
+
+    return 0
 }
 

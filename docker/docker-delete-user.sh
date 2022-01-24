@@ -21,23 +21,32 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1.
+# 1. Delete a user from a container
 #
 # You must/might inform the parameters below:
-# 1.
-# 2. [optional] (default: )
+# 1. Container name
+# 2. Username
+# 3. [optional] (default: )
 #
 #-----------------------------------------------------------------------
 
-function_name()
+docker_delete_user()
 {
-#    local LOCAL_
-   
-#    LOCAL_=${1:-null}
- 
-#    [[ $LOCAL_ == "" || $LOCAL_ == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
- 
-#    [[ "$DEBUG" == true ]] && echowarning ""
-#    [[ "$SILENT" == true ]] && echowarning ""
+    local LOCAL_CONTAINER LOCAL_USER_NAME
+    
+    LOCAL_CONTAINER=${1:-null}
+    LOCAL_USER_NAME=${2:-null}
+
+    [[ $LOCAL_USER_NAME == "" || $LOCAL_USER_NAME == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+
+    [[ "$DEBUG" == true ]] && echo "Deleting user '$LOCAL_USER_NAME' from container '$LOCAL_CONTAINER'."
+
+    if [[ "$SILENT" == true ]]; then
+        docker exec -it $LOCAL_CONTAINER userdel --remove $LOCAL_USER_NAME 2>&1 > /dev/null
+    else
+        docker exec -it $LOCAL_CONTAINER userdel --remove $LOCAL_USER_NAME
+    fi
+
+    return 0
 }
 

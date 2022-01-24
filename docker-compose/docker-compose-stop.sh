@@ -48,6 +48,6 @@ docker_compose_stop()
    
     # Stop service or return error variable
     if ! docker-compose --env-file $LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE --file $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME down; then
-        ERROR_DOCKER_COMPOSE_START=true
+        ERROR_DOCKER_COMPOSE_STOP=true
     fi
 }

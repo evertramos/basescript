@@ -21,23 +21,31 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1.
+# 1. Remove a user key from a container
 #
 # You must/might inform the parameters below:
-# 1.
-# 2. [optional] (default: )
+# 1. Container name
+# 2. Username
+# 3. [optional] (default:)
 #
 #-----------------------------------------------------------------------
 
-function_name()
+docker_remove_user_ssh_key()
 {
-#    local LOCAL_
-   
-#    LOCAL_=${1:-null}
- 
-#    [[ $LOCAL_ == "" || $LOCAL_ == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
- 
-#    [[ "$DEBUG" == true ]] && echowarning ""
-#    [[ "$SILENT" == true ]] && echowarning ""
-}
+    local LOCAL_CONTAINER LOCAL_USER_NAME LOCAL_SKIP_ON_ERROR
 
+    LOCAL_CONTAINER="${1:-null}"
+    LOCAL_USER_NAME="${2:-null}"
+
+    [[ $LOCAL_CONTAINER == "" ]] && echoerror "You must inform a container to the function: '${FUNCNAME[0]}'"
+
+    [[ "$DEBUG" == true ]] && echo "Removing $LOCAL_USER_NAME's key in $LOCAL_CONTAINER"
+
+    if [[ "$SILENT" == true ]]; then
+        docker exec -it $LOCAL_CONTAINER bash -c "cd && sed -i '\| $LOCAL_USER_NAME@|d' .ssh/authorized_keys" 2>&1 > /dev/null
+    else
+        docker exec -it $LOCAL_CONTAINER bash -c "cd && sed -i '\| $LOCAL_USER_NAME@|d' .ssh/authorized_keys"
+    fi
+
+    return 0
+}

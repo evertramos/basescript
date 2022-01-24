@@ -21,23 +21,31 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1.
+# 1. Add user's pub key to authorized_keys in a container
 #
 # You must/might inform the parameters below:
-# 1.
-# 2. [optional] (default: )
+# 1. Container name
+# 2. Key string
+# 3. [optional] (default: )
 #
 #-----------------------------------------------------------------------
 
-function_name()
+docker_add_ssh_key_to_main_user()
 {
-#    local LOCAL_
-   
-#    LOCAL_=${1:-null}
- 
-#    [[ $LOCAL_ == "" || $LOCAL_ == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
- 
-#    [[ "$DEBUG" == true ]] && echowarning ""
-#    [[ "$SILENT" == true ]] && echowarning ""
+    local LOCAL_CONTAINER LOCAL_SSH_KEY
+
+    LOCAL_CONTAINER="${1:-null}"
+    LOCAL_SSH_KEY="${2:-null}"
+
+    [[ $LOCAL_SSH_KEY == "" || $LOCAL_SSH_KEY == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+
+    [[ "$DEBUG" == true ]] && echo "Adding key to container '$LOCAL_CONTAINER'"
+
+    docker exec -it $LOCAL_CONTAINER bash -c "cd && mkdir -p .ssh"
+    docker exec -it $LOCAL_CONTAINER bash -c "cd && chmod 600 .ssh"
+    docker exec -it $LOCAL_CONTAINER bash -c "cd && echo ${LOCAL_SSH_KEY} >> .ssh/authorized_keys"
+    docker exec -it $LOCAL_CONTAINER bash -c "cd && chmod 600 .ssh/authorized_keys"
+
+    return 0
 }
 

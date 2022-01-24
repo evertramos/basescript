@@ -21,23 +21,32 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1.
+# 1. Check if a username already exists in a specific container
 #
 # You must/might inform the parameters below:
-# 1.
-# 2. [optional] (default: )
+# 1. Container name to check if a user already exists
+# 2. Username that should be checked
 #
 #-----------------------------------------------------------------------
 
-function_name()
+docker_check_user_exists_in_container()
 {
-#    local LOCAL_
-   
-#    LOCAL_=${1:-null}
- 
-#    [[ $LOCAL_ == "" || $LOCAL_ == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
- 
-#    [[ "$DEBUG" == true ]] && echowarning ""
-#    [[ "$SILENT" == true ]] && echowarning ""
+    local LOCAL_SSH_CONTAINER LOCAL_USER_NAME LOCAL_RESULT
+
+    LOCAL_SSH_CONTAINER="${1:-null}"
+    LOCAL_USER_NAME=${2:-null}
+
+    [[ $LOCAL_USER_NAME == "" || $LOCAL_USER_NAME == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+
+    [[ "$DEBUG" == true ]] && echo "Checking if user '$LOCAL_USER_NAME' exists in '$LOCAL_SSH_CONTAINER'"
+
+    LOCAL_RESULT=$(docker exec -it $LOCAL_SSH_CONTAINER id -u $LOCAL_USER_NAME > /dev/null 2>&1; echo $?)
+
+    # Check results
+    if [[ "$LOCAL_RESULT" == 0 ]]; then
+        DOCKER_USER_EXISTS_IN_CONTAINER=true
+    else
+        DOCKER_USER_EXISTS_IN_CONTAINER=false
+    fi
 }
 
