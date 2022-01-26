@@ -25,7 +25,7 @@
 #
 # ----------------------------------------------------------------------
 # This script has one main objective:
-# 1. Set colors for output messages
+# 1. Set colors for output messages if has a tty and a temrinal type definition
 #
 # ----------------------------------------------------------------------
 
@@ -39,16 +39,18 @@
 #  Cyan     = setaf 6
 #  White    = setaf 7
 
-# Colors on output
-black=`tput setaf 0`
-red=`tput setaf 1`
-green=`tput setaf 2`
-lightgreen=`tput setaf 6`
-yellow=`tput setaf 3`
-blue=`tput setaf 4`
-magenta=`tput setaf 5`
-cyan=`tput setaf 75`
-white=`tput setaf 7`
-purple=`tput setaf 129`
+if [[ -n "$TERM" && -t 1 ]]; then
+    # Colors on output
+    black=`tput setaf 0`
+    red=`tput setaf 1`
+    green=`tput setaf 2`
+    lightgreen=`tput setaf 6`
+    yellow=`tput setaf 3`
+    blue=`tput setaf 4`
+    magenta=`tput setaf 5`
+    cyan=`tput setaf 75`
+    white=`tput setaf 7`
+    purple=`tput setaf 129`
 
-reset=`tput sgr0`
+    reset=`tput sgr0`
+fi
