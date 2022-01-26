@@ -1,0 +1,17 @@
+name: Pre release
+
+on:
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  #workflow_dispatch:
+
+jobs:
+  pre-relase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release Drafter
+        uses: release-drafter/release-drafter@v5.17.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
