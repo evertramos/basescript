@@ -92,3 +92,4 @@ If you find any security vulnerability, please DO NOT open an issue, send an ema
 
 # Support this project at [Patreon](https://www.patreon.com/evertramos)
 [https://www.patreon.com/evertramos](https://www.patreon.com/evertramos)
+
