@@ -21,7 +21,12 @@
 #
 #-----------------------------------------------------------------------
 #
-# source: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+# sources:
+# https://gist.github.com/evertramos/f57e5bc5f3f34470d6b4289a06699edd
+# https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+# https://dom111.github.io/image-to-ansi/
+# https://wiki.bash-hackers.org/scripting/terminalcodes
+# https://www.shellhacks.com/bash-colors/
 #
 # ----------------------------------------------------------------------
 # This script has one main objective:
