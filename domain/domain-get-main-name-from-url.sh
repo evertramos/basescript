@@ -39,7 +39,7 @@ domain_get_main_name_from_url()
 
     [[ $LOCAL_URL == "" || $LOCAL_URL == null ]] && echoerror "You must inform an URL to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" = true ]] && echo "Getting the main domain name from a URL."
+    [[ "$DEBUG" == true ]] && echo "Getting the main domain name from a URL."
 
     LOCAL_URL="$(echo $LOCAL_URL | sed -e 's|www.||' -e 's|^[^/]*//||' -e 's|/.*$||')"
 
