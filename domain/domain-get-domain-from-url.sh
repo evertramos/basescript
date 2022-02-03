@@ -25,22 +25,27 @@
 #
 # You must/might inform the parameters below:
 # 1. URL which should return the domain name
-# 2. [optional] (default: ) n/a
+# 2. [optional] (default: true) Remove 'www' from the URL
 #
 #-----------------------------------------------------------------------
 
 domain_get_domain_from_url()
 {
-    local LOCAL_URL
+    local LOCAL_URL LOCAL_REMOVE_WWW_FROM_URL
 
     LOCAL_URL="${1:-null}"
+    LOCAL_REMOVE_WWW_FROM_URL="${2:-true}"
 
     [[ $LOCAL_URL == "" || $LOCAL_URL == null ]] && echoerror "You must inform an URL to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" = true ]] && echo "Getting the domain name from a URL."
+    [[ "$DEBUG" == true ]] && echo "Getting the domain name from a URL."
 
     if [[ "$LOCAL_URL" != '' ]]; then
-       DOMAIN_URL_RESPONSE="$(echo $LOCAL_URL | sed -e 's|www.||' -e 's|^[^/]*//||' -e 's|/.*$||')"
+        if [[ "$LOCAL_REMOVE_WWW_FROM_URL" == true ]]; then
+            DOMAIN_URL_RESPONSE="$(echo $LOCAL_URL | sed -e 's|www.||' -e 's|^[^/]*//||' -e 's|/.*$||')"
+        else
+            DOMAIN_URL_RESPONSE="$(echo $LOCAL_URL | sed -e 's|^[^/]*//||' -e 's|/.*$||')"
+        fi
     else
        [[ "$SILENT" != true ]] && echoerror "You must inform the URL in order the extract the domain name."
     fi

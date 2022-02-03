@@ -41,7 +41,7 @@ confirm_user_action()
     LOCAL_KILL_SCRIPT=${2:-true}
     LOCAL_INVERT_DEFAULT=${3:-false}
     
-    [[ "$DEBUG" = true ]] && echo "Confirm user's action."
+    [[ "$DEBUG" == true ]] && echo "Confirm user's action."
 
     # The default question is to set "No" 
     if [[ "$LOCAL_INVERT_DEFAULT" == true ]]; then
