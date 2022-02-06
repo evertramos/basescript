@@ -26,18 +26,33 @@
 # You must/might inform the parameters below:
 # 1.
 # 2. [optional] (default: )
+# 99. [optional] (default: true) Stop execution on error
 #
 #-----------------------------------------------------------------------
 
 function_name()
 {
-#    local LOCAL_
+    local LOCAL_ LOCAL_STOP_EXECUTION_ON_ERROR
    
-#    LOCAL_=${1:-null}
- 
-#    [[ $LOCAL_ == "" || $LOCAL_ == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
- 
-#    [[ "$DEBUG" == true ]] && echowarning ""
-#    [[ !"$SILENT" == true ]] && echowarning ""
+    LOCAL_=${1:-null}
+    LOCAL_STOP_EXECUTION_ON_ERROR=${99:-true}
+
+    if [[ $LOCAL_ == "" || $LOCAL_ == null ]]; then
+         if [[ ! $(declare -F echoerror) == "" ]]; then
+             echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'" ${LOCAL_STOP_EXECUTION_ON_ERROR}
+         else
+             echo "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
+             [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
+         fi
+     fi
+
+     if [[ "$DEBUG" == true ]]; then
+         if [[ ! $(declare -F echowarning) == "" ]]; then
+             echowarning "You are running..... xyz - [function: ${FUNCNAME[0]}]"
+         else
+             echo "You are running..... xyz - [function: ${FUNCNAME[0]}]"
+             [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
+         fi
+     fi
 }
 
