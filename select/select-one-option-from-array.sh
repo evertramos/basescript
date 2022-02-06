@@ -50,7 +50,7 @@ select_one_option_from_array()
     [[ "$DEBUG" == true ]] && echo "Selecting one option - [function: ${FUNCNAME[0]}]"
 
     if [[ ${#LOCAL_OPTIONS[@]} -eq 0 ]]; then
-        echoerror "There are no options available for selection number of option is greater than '$LOCAL_LIMIT'"
+        echoerror "There are no options available for selection"
         ERROR_EMPTY_ARRAY_SELECT_ONE_OPTION=true
         return 0
     fi
