@@ -27,6 +27,7 @@
 # 1. Base path folder to list all sub-folders from
 # 2. [optional] (default: 'Select one of the folder below:') You may
 # inform the sentence you want to show to the user
+# 4. [optional] (default: null) String to filter the listed options
 # 3. [optional] (default: 20) Limit options to not break the screen
 #
 #-----------------------------------------------------------------------
@@ -39,11 +40,12 @@
 
 select_folder_from_path()
 {
-    local LOCAL_BASE_FOLDER LOCAL_LIMIT LOCAL_MESSAGE LOCAL_OPTIONS
+    local LOCAL_BASE_FOLDER LOCAL_LIMIT LOCAL_MESSAGE LOCAL_FILTER_STRING LOCAL_OPTIONS
 
     LOCAL_BASE_FOLDER=${1:-null}
     LOCAL_MESSAGE=${2:-"Select one of the folders below:"}
-    LOCAL_LIMIT=${3:-20}
+    LOCAL_FILTER_STRING=${3:-null}
+    LOCAL_LIMIT=${4:-20}
 
     [[ $LOCAL_BASE_FOLDER == "" || $LOCAL_BASE_FOLDER == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
@@ -51,7 +53,11 @@ select_folder_from_path()
 
     # Source all folder to an array
     cd $LOCAL_BASE_FOLDER
-    LOCAL_OPTIONS=($(ls -d */ | sed 's#/##'))
+    if [[ $LOCAL_FILTER_STRING != "" ]]; then
+        LOCAL_OPTIONS=($(ls -d */ | sed 's#/##' | grep $LOCAL_FILTER_STRING))
+    else
+        LOCAL_OPTIONS=($(ls -d */ | sed 's#/##'))
+    fi
     cd - > /dev/null 2>&1
 
     if [[ ${#LOCAL_OPTIONS[@]} -eq 0 ]]; then
