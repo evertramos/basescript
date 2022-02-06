@@ -115,5 +115,5 @@ backup_compress_folder()
 }
 
 # @todo - implement test cases
-#backup_compress_folder $1 $2 $3 $4 $5 $6
+#backup_compress_folder "$@"
 
