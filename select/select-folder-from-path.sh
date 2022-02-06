@@ -53,7 +53,7 @@ select_folder_from_path()
 
     # Source all folder to an array
     cd $LOCAL_BASE_FOLDER
-    if [[ $LOCAL_FILTER_STRING != "" ]]; then
+    if [[ ! $LOCAL_FILTER_STRING == "" && ! $LOCAL_FILTER_STRING == null ]]; then
         LOCAL_OPTIONS=($(ls -d */ | sed 's#/##' | grep $LOCAL_FILTER_STRING))
     else
         LOCAL_OPTIONS=($(ls -d */ | sed 's#/##'))
