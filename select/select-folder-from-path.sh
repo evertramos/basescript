@@ -21,11 +21,11 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Show options to the user and return one option form the informed array
+# 1. List folder from a path so user select one option
 #
 # You must/might inform the parameters below:
-# 1. Options which should be shown to the user (array)
-# 2. [optional] (default: 'Select one of the options below:') You may
+# 1. Base path folder to list all sub-folders from
+# 2. [optional] (default: 'Select one of the folder below:') You may
 # inform the sentence you want to show to the user
 # 3. [optional] (default: 20) Limit options to not break the screen
 #
@@ -37,20 +37,25 @@
 # if you want to increase you must inform the new limit as variable
 # ----------------------------------------------------------------------
 
-select_one_option_from_array()
+select_folder_from_path()
 {
-    local LOCAL_OPTIONS LOCAL_LIMIT LOCAL_MESSAGE
+    local LOCAL_BASE_FOLDER LOCAL_LIMIT LOCAL_MESSAGE LOCAL_OPTIONS
 
-    LOCAL_OPTIONS=(${1})
-    LOCAL_MESSAGE=${2:-"Select one of the options below:"}
+    LOCAL_BASE_FOLDER=${1:-null}
+    LOCAL_MESSAGE=${2:-"Select one of the folders below:"}
     LOCAL_LIMIT=${3:-20}
 
-    [[ $LOCAL_OPTIONS == "" ]] && echoerror "You must inform the options to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_BASE_FOLDER == "" || $LOCAL_BASE_FOLDER == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" == true ]] && echo "Selecting one option - [function: ${FUNCNAME[0]}]"
+    [[ "$DEBUG" == true ]] && echowarning "Selecting a folder from: ${LOCAL_BASE_FOLDER} - [function: ${FUNCNAME[0]}]"
+
+    # Source all folder to an array
+    cd $LOCAL_BASE_FOLDER
+    LOCAL_OPTIONS=($(ls -d */ | sed 's#/##'))
+    cd - > /dev/null 2>&1
 
     if [[ ${#LOCAL_OPTIONS[@]} -eq 0 ]]; then
-        echoerror "There are no options available for selection"
+        echoerror "There are no folder in this path: ${LOCAL_BASE_FOLDER}"
         ERROR_EMPTY_ARRAY_SELECT_ONE_OPTION=true
         return 0
     fi
