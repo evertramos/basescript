@@ -21,12 +21,12 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Show options to the user and return one option only
+# 1. Show options to the user and return one option form the informed array
 #
 # You must/might inform the parameters below:
-# 1. Options which should be shown to the user
-# 2. [optional] (default: 'Select one of the options below:') You
-# may inform the sentence you want to show to the user for options
+# 1. Options which should be shown to the user (array)
+# 2. [optional] (default: 'Select one of the options below:') You may
+# inform the sentence you want to show to the user
 # 3. [optional] (default: 20) Limit options to not break the screen
 #
 #-----------------------------------------------------------------------
@@ -37,7 +37,7 @@
 # if you want to increase you must inform the new limit as variable
 # ----------------------------------------------------------------------
 
-select_one_option()
+select_one_option_from_array()
 {
     local LOCAL_OPTIONS LOCAL_LIMIT LOCAL_MESSAGE
 
