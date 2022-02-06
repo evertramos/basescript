@@ -26,8 +26,10 @@
 # You must/might inform the parameters below:
 # 1. The full path folder to backup
 # 2. The full path folder where backup file should be placed
-# 3. The full path folder where backup file should be placed
-# 2. [optional] (default: )
+# 3. [optional] (default: timestamp) A flag to be added to the backup file name
+# 4. [optional] (default: null) The backup file name
+# 5. [optional] (default: true) If backup file exist replace the old file
+# 6. [optional] (default: true) Stop execution on error
 #
 #-----------------------------------------------------------------------
 
