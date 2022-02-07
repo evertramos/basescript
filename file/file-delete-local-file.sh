@@ -39,7 +39,8 @@ file_delete_local_file()
  
     [[ "$DEBUG" == true ]] && echo "Deleting file '$LOCAL_FILE'"
 
-    rm $LOCAL_FILE
+    # Checkinf the file (-f) validates if trying to delete a folder
+    [[ -f $LOCAL_FILE ]] && rm -f $LOCAL_FILE
 
     return 0
 }
