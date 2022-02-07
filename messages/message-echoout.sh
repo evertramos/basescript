@@ -76,7 +76,7 @@ echoinfo()
   [[ "$LOCAL_LOG_ACTION" == true ]] && log "[INFO MESSAGE] $@"
 
   # Check $SILENT mode
-  [[ "$SILENT" != true ]] && printf " ${cyan}${warn} WARNING${reset}${cyan} ${1//\\n/\\n   }${reset}\n" 1>&2;
+  [[ "$SILENT" != true ]] && printf " ${cyan}${warn} INFO${reset}${cyan} ${1//\\n/\\n   }${reset}\n" 1>&2;
 
   [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
 }
