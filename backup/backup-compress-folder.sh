@@ -59,7 +59,6 @@ backup_compress_folder()
             echowarning "Backing up folder '${LOCAL_BACKUP_FOLDER_FROM}' to '${LOCAL_BACKUP_FOLDER_TO}' [flag:${LOCAL_BACKUP_FLAG}] - [function: ${FUNCNAME[0]}]"
         else
             echo "Backing up folder '${LOCAL_BACKUP_FOLDER_FROM}' to '${LOCAL_BACKUP_FOLDER_TO}' [flag:${LOCAL_BACKUP_FLAG}] - [function: ${FUNCNAME[0]}]"
-            [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
         fi
     fi
 
