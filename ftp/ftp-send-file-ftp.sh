@@ -54,7 +54,6 @@ ftp_send_file_ftp()
              echowarning "Sending file '$LOCAL_FULLFILE_NAME' to ftp server '$LOCAL_SERVER_STRING_CONNECTION' to location '$LOCAL_SERVER_FOLDER_DESTINATION'."
          else
              echo "Sending file '$LOCAL_FULLFILE_NAME' to ftp server '$LOCAL_SERVER_STRING_CONNECTION' to location '$LOCAL_SERVER_FOLDER_DESTINATION'."
-             [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
          fi
      fi
 
