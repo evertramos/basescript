@@ -23,20 +23,31 @@
 # This function has one main objective:
 # 1.
 #
-# You must/might inform the parameters below:
+# You must/might inform the argument(s) below:
 # 1.
 # 2. [optional] (default: )
-# 99. [optional] (default: true) Stop execution on error
+# d1. [optional] (default: true) Stop execution on error
+# d2. [optional] (default: true) Allow run with 'sudo'
+#
+# [CAUTION] The optional argument(s) replaces previously parameter as of:
+#   d1. STOP_EXECUTION_ON_ERROR
+#   d2. ALLOW_RUN_WITH_SUDO
 #
 #-----------------------------------------------------------------------
 
 function_name()
 {
-    local LOCAL_ LOCAL_STOP_EXECUTION_ON_ERROR
-   
-    LOCAL_=${1:-null}
-    LOCAL_STOP_EXECUTION_ON_ERROR=${99:-true}
+    # Local variables
+    local LOCAL_ LOCAL_STOP_EXECUTION_ON_ERROR LOCAL_ALLOW_RUN_WITH_SUDO LOCAL_RUN_WITH_SUDO
 
+    # Required arguments
+    LOCAL_=${1:-null}
+
+    # Optional arguments
+    LOCAL_STOP_EXECUTION_ON_ERROR="${d1:-null}" && [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == null ]] && LOCAL_STOP_EXECUTION_ON_ERROR=${STOP_EXECUTION_ON_ERROR:-true}
+#    LOCAL_ALLOW_RUN_WITH_SUDO="${d1:-null}" && [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == null ]] && LOCAL_ALLOW_RUN_WITH_SUDO=${ALLOW_RUN_WITH_SUDO:-true}
+
+    # Validate required parameters
     if [[ $LOCAL_ == "" || $LOCAL_ == null ]]; then
          if [[ ! $(declare -F echoerror) == "" ]]; then
              echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'" ${LOCAL_STOP_EXECUTION_ON_ERROR}
@@ -46,13 +57,23 @@ function_name()
          fi
      fi
 
+     # Show debug message
      if [[ "$DEBUG" == true ]]; then
          if [[ ! $(declare -F echowarning) == "" ]]; then
              echowarning "You are running..... xyz - [function: ${FUNCNAME[0]}]"
          else
              echo "You are running..... xyz - [function: ${FUNCNAME[0]}]"
-             [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && exit 1
          fi
      fi
+
+
+     # [EXAMPLE] Run a function with 'sudo'
+     # Allows 'sudo' to run in this function with a condition
+#     [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == true ]] && LOCAL_RUN_WITH_SUDO=sudo
+#     $LOCAL_RUN_WITH_SUDO mkdir -p
+     # [CONDITION] You may add a condition to check if it requires to run a command with 'sudo'
+#     [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == true ]] && ! system_check_user_folder_owner ${LOCAL_FOLDER%/*} && LOCAL_RUN_WITH_SUDO=sudo
+#     $LOCAL_RUN_WITH_SUDO mkdir -p $LOCAL_FOLDER > /dev/null 2>&1
+
 }
 
