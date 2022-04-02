@@ -8,7 +8,7 @@ We normally use right after souricing _bootstrap.sh_ file the following lines:
 
 ```bash
 log "Start execution"
-log "$@"
+log "'$*'"
 ```
 
 > This way you will identify the initial part of your script execution and all arguments passed into your script 
