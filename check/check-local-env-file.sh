@@ -36,7 +36,7 @@ check_local_env_file()
     if [[ -e .env ]]; then
         source .env
     else 
-        MESSAGE="'.env' file not found! \n\n Please check!"
+        MESSAGE="'.env' file not found at '$(pwd)/'! \n\n Please check!"
         return 1
     fi
 }
