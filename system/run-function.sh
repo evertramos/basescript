@@ -37,7 +37,7 @@ run_function()
 
     [[ $1 == "" ]] && echoerror "You must inform an argument to the function '${FUNCNAME[0]}', \nplease check the docs."
 
-    [[ "$LOCAL_LOG_ACTION" == true ]] && log "Function $@"
+    [[ "$LOCAL_LOG_ACTION" == true ]] && log "Function '$*'"
 
     # Check $SILENT mode
     if [[ "$SILENT" == true ]]; then
@@ -71,19 +71,19 @@ run_function()
                 $1
             fi
         else
-            [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [ERROR] (Function $1 not found)"
+            [[ "$LOCAL_LOG_ACTION" == true ]] && log "'$*' [ERROR] (Function $1 not found)"
             printf " ${red}${error} ERROR${reset}${yellow}   Function '${1}' not found!${reset}\n"
             exit 1
         fi
 
         # Show result from the function execution
         if [[ $? -ne 0 ]]; then
-            [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [ERROR]"
+            [[ "$LOCAL_LOG_ACTION" == true ]] && log "'$*' [ERROR]"
             printf " ${red}${error} ERROR${reset}${yellow}   Function '${1}' output:${reset}\n"
             printf " ${red}${MESSAGE//\\n/\\n|}${reset}\n"
             exit 1
         else
-            [[ "$LOCAL_LOG_ACTION" == true ]] && log "$@ [SUCCESS]"
+            [[ "$LOCAL_LOG_ACTION" == true ]] && log "'$*' [SUCCESS]"
             printf " ${green}$check success${reset}${blue} Function '${1}'${reset}"
         fi
 
