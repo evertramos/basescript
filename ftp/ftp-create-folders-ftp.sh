@@ -70,4 +70,4 @@ ftp_create_folders_ftp()
     done 
 }
 
-source ../messages/message-echoout.sh
+#source ../messages/message-echoout.sh

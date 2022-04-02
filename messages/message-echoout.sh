@@ -37,7 +37,7 @@ echoerror()
   LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-true}
 
-  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[ERROR MESSAGE] $@"
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[ERROR MESSAGE] '$*'"
 
   # Check $SILENT mode
   if [[ "$SILENT" == true ]]; then
@@ -57,7 +57,7 @@ echowarning()
   LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-false}
 
-  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[WARGNING MESSAGE] $@"
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[WARGNING MESSAGE] '$*'"
 
   # Check $SILENT mode
   [[ "$SILENT" != true ]] && printf " ${yellow}${warn} WARNING${reset}${yellow} ${1//\\n/\\n   }${reset}\n" 1>&2;
@@ -73,7 +73,7 @@ echoinfo()
   LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-false}
 
-  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[INFO MESSAGE] $@"
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[INFO MESSAGE] '$*'"
 
   # Check $SILENT mode
   [[ "$SILENT" != true ]] && printf " ${cyan}${warn} INFO${reset}${cyan} ${1//\\n/\\n   }${reset}\n" 1>&2;
@@ -89,7 +89,7 @@ echosuccess()
   LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-false}
 
-  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[SUCCESS MESSAGE] $@"
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[SUCCESS MESSAGE] '$*'"
 
   # Check $SILENT mode
   [[ "$SILENT" != true ]] && printf " ${green}${check} success${reset}${cyan} ${1//\\n/\\n   }${reset}\n" 1>&2;
@@ -105,7 +105,7 @@ echoline()
   LOCAL_LOG_ACTION=${BASESCRIPT_LOG_ALL_ACTIONS:-true}
   LOCAL_STOP_EXECUTION_ON_ERROR=${2:-false}
 
-  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[MESSAGE] $@"
+  [[ "$LOCAL_LOG_ACTION" == true ]] && log "[MESSAGE] '$*'"
 
   # Check $SILENT mode
   [[ "$SILENT" != true ]] && printf " ${1//\\n/\\n   }\n" 1>&2;
