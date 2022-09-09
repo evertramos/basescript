@@ -52,5 +52,11 @@ file_comment_line_with_string()
     # Allows 'sudo' to run this function if destination path it's not owned by the current user
     [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == true ]] && ! system_check_user_folder_owner ${LOCAL_FULL_FILE_PATH%/*} && LOCAL_RUN_WITH_SUDO=sudo
 
-    $LOCAL_RUN_WITH_SUDO sed -i '/'"$LOCAL_STRING"'/s/^/'"$LOCAL_COMMENT_MARK"'/g' "$LOCAL_FULL_FILE_PATH"
-}
+    # check if machine is Mac to update sed command
+    if [ "$(uname)" == "Darwin" ]; then 
+        $LOCAL_RUN_WITH_SUDO sed -i '' -e '/'"$LOCAL_STRING"'/s/^/'"$LOCAL_COMMENT_MARK"'/g' "$LOCAL_FULL_FILE_PATH"
+    else 
+        $LOCAL_RUN_WITH_SUDO sed -i '/'"$LOCAL_STRING"'/s/^/'"$LOCAL_COMMENT_MARK"'/g' "$LOCAL_FULL_FILE_PATH"   
+    fi
+
+    }

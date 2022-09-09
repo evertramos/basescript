@@ -40,13 +40,14 @@ dockerhub_check_image_exists()
  
     [[ "$DEBUG" == true ]] && echo "Checking if image '$LOCAL_IMAGE:$LOCAL_TAG' exists in docker hub"
 
+    #TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'${UNAME_DOCKERHUB}'", "password": "'${UPASS_DOCKERHUB}'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
     # This command will filter the number versions and limited to one dot (.)
-    LOCAL_RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null https://index.docker.io/v1/repositories/$LOCAL_IMAGE/tags/$LOCAL_TAG)
-    # LOCAL_RESPONSE=$(curl --silent -f -lSL https://index.docker.io/v1/repositories/$LOCAL_IMAGE/tags/$LOCAL_TAG >&1)
-
+    LOCAL_RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null https://hub.docker.com/v2/repositories/$LOCAL_IMAGE/tags/$LOCAL_TAG/)
+    
     if [[ $LOCAL_RESPONSE == "200" ]]; then
         DOCKERHUB_IMAGE_EXISTS=true
     else
         DOCKERHUB_IMAGE_EXISTS=false
     fi
 }
+
