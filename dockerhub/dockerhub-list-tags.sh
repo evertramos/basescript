@@ -42,8 +42,27 @@ dockerhub_list_tags()
 
     # This command will filter the number versions and limited to one dot (.) and two versions such as 0.1 or all versions if LOCAL_GET_TWO_DIGITS_VERSIONS is set to false
     if [[ "$LOCAL_GET_TWO_DIGITS_VERSIONS" == true ]]; then
-        DOCKERHUB_LIST_TAGS=($(wget -q https://registry.hub.docker.com/v1/repositories/$LOCAL_IMAGE/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}' | grep '^[0-9]' | grep -v '-' | grep -v '\.[0-9]\.'))
+        DOCKERHUB_LIST_TAGS=($(wget -q https://hub.docker.com/v2/namespaces/library/repositories/$LOCAL_IMAGE/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}' | grep '^[0-9]' | grep -v '-' | grep -v '\.[0-9]\.'))
     else
-        DOCKERHUB_LIST_TAGS=($(wget -q https://registry.hub.docker.com/v1/repositories/$LOCAL_IMAGE/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}' | grep '^[0-9]' | grep -v '-'))
+        DOCKERHUB_LIST_TAGS=($(wget -q https://hub.docker.com/v2/namespaces/library/repositories/$LOCAL_IMAGE/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}' | grep '^[0-9]' | grep -v '-'))
     fi
 }
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+
+    FUNCTION_NAME=dockerhub_list_tags
+
+    BASESCRIPT_LOG_ALL_ACTIONS=false
+    source ./../messages/message-echoout.sh
+    source ./../init/color.sh
+    source ./../init/symbol.sh
+    LOCAL_RESULT=$($FUNCTION_NAME $1 $2 2>&1)
+
+    RETURN_CODE=$?
+    if [[ $LOCAL_RESULT == *"ERRO"* ]] || [[ $LOCAL_RESULT == *"erro"* ]] || [[ "$RETURN_CODE" != 0 ]]; then
+        printf "${red}$cross Error\n${reset}"
+        printf "Function: '$FUNCTION_NAME'\nOutput:\n$LOCAL_RESULT\n"
+    else
+        printf "${green}$check test passed!\n${reset}"
+    fi
+fi

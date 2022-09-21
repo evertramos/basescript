@@ -50,7 +50,6 @@ dockerhub_check_image_exists()
     fi
 }
 
-
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
 
     FUNCTION_NAME=dockerhub_check_image_exists
@@ -69,4 +68,3 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         printf "${green}$check test passed!\n${reset}"
     fi
 fi
-
