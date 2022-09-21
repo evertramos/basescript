@@ -41,8 +41,7 @@ dockerhub_check_image_exists()
     [[ "$DEBUG" == true ]] && echo "Checking if image '$LOCAL_IMAGE:$LOCAL_TAG' exists in docker hub"
 
     # This command will filter the number versions and limited to one dot (.)
-    LOCAL_RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null https://index.docker.io/v1/repositories/$LOCAL_IMAGE/tags/$LOCAL_TAG)
-    # LOCAL_RESPONSE=$(curl --silent -f -lSL https://index.docker.io/v1/repositories/$LOCAL_IMAGE/tags/$LOCAL_TAG >&1)
+    LOCAL_RESPONSE=$(curl --write-out '%{http_code}' --silent --output /dev/null https://hub.docker.com/v2/namespaces/library/repositories/$LOCAL_IMAGE/tags/$LOCAL_TAG)
 
     if [[ $LOCAL_RESPONSE == "200" ]]; then
         DOCKERHUB_IMAGE_EXISTS=true
@@ -50,3 +49,24 @@ dockerhub_check_image_exists()
         DOCKERHUB_IMAGE_EXISTS=false
     fi
 }
+
+
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+
+    FUNCTION_NAME=dockerhub_check_image_exists
+
+    BASESCRIPT_LOG_ALL_ACTIONS=false
+    source ./../messages/message-echoout.sh
+    source ./../init/color.sh
+    source ./../init/symbol.sh
+    LOCAL_RESULT=$($FUNCTION_NAME $1 $2 2>&1)
+
+    RETURN_CODE=$?
+    if [[ $LOCAL_RESULT == *"ERRO"* ]] || [[ $LOCAL_RESULT == *"erro"* ]] || [[ "$RETURN_CODE" != 0 ]]; then
+        printf "${red}$cross Error\n${reset}"
+        printf "Function: '$FUNCTION_NAME'\nOutput:\n$LOCAL_RESULT\n"
+    else
+        printf "${green}$check test passed!\n${reset}"
+    fi
+fi
+
