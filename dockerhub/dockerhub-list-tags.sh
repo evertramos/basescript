@@ -31,10 +31,11 @@
 
 dockerhub_list_tags()
 {
-    local LOCAL_IMAGE LOCAL_GET_TWO_DIGITS_VERSIONS
+    local LOCAL_IMAGE LOCAL_GET_TWO_DIGITS_VERSIONS LOCAL_PAGE_SIZE
      
     LOCAL_IMAGE=${1:-null}
     LOCAL_GET_TWO_DIGITS_VERSIONS=${2:-true}
+    LOCAL_PAGE_SIZE=${3:-100}
 
     [[ $LOCAL_IMAGE == "" || $LOCAL_IMAGE == null ]] && echoerror "You must inform at least the image name to the function: '${FUNCNAME[0]}'"
 
@@ -42,9 +43,9 @@ dockerhub_list_tags()
 
     # This command will filter the number versions and limited to one dot (.) and two versions such as 0.1 or all versions if LOCAL_GET_TWO_DIGITS_VERSIONS is set to false
     if [[ "$LOCAL_GET_TWO_DIGITS_VERSIONS" == true ]]; then
-        DOCKERHUB_LIST_TAGS=($(wget -q https://hub.docker.com/v2/namespaces/library/repositories/$LOCAL_IMAGE/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}' | grep '^[0-9]' | grep -v '-' | grep -v '\.[0-9]\.'))
+        DOCKERHUB_LIST_TAGS=($(wget -q https://hub.docker.com/v2/namespaces/library/repositories/$LOCAL_IMAGE/tags?page_size=$LOCAL_PAGE_SIZE -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $7}' | grep '^[0-9]' | cut -d, -f1 | grep -v '-' | grep -v '\.[0-9]\.'))
     else
-        DOCKERHUB_LIST_TAGS=($(wget -q https://hub.docker.com/v2/namespaces/library/repositories/$LOCAL_IMAGE/tags -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}' | grep '^[0-9]' | grep -v '-'))
+        DOCKERHUB_LIST_TAGS=($(wget -q https://hub.docker.com/v2/namespaces/library/repositories/$LOCAL_IMAGE/tags?page_size=$LOCAL_PAGE_SIZE -O - | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n' | awk -F: '{print $7}' | grep '^[0-9]' | cut -d, -f1 | grep -v '-'))
     fi
 }
 
