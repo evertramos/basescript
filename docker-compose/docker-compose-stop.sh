@@ -21,11 +21,11 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Stop the docker-compose service
+# 1. Stop the docker composeservice
 #
 # You must inform the parameters below:
 # 1. Path where the compose file are located (/path/docker-compose.yml)
-# 2. [optional] (default: docker-compose.yml) docker-compose file name
+# 2. [optional] (default: docker-compose.yml) docker composefile name
 # 3. [optional] (default: .env) .env file name
 # 4. [optional] (default: same location in arg. 1) .env file location
 #
@@ -42,12 +42,12 @@ docker_compose_stop()
     LOCAL_DOCKER_COMPOSE_ENV_PATH=${4:-$LOCAL_DOCKER_COMPOSE_PATH}
     LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE="${LOCAL_DOCKER_COMPOSE_ENV_PATH%/}/$LOCAL_DOCKER_COMPOSE_ENV_FILE"
    
-    [[ $LOCAL_DOCKER_COMPOSE_PATH == "" ]] && [[ $LOCAL_DOCKER_COMPOSE_PATH == null ]] && echoerror "You must inform the docker-compose file path to the function: '${FUNCNAME[0]}'"
+    [[ $LOCAL_DOCKER_COMPOSE_PATH == "" ]] && [[ $LOCAL_DOCKER_COMPOSE_PATH == null ]] && echoerror "You must inform the docker composefile path to the function: '${FUNCNAME[0]}'"
 
     [[ "$DEBUG" == true ]] && echo "Stopping docker composer service for '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME' - [function: ${FUNCNAME[0]}]"
    
     # Stop service or return error variable
-    if ! docker-compose --env-file $LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE --file $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME down; then
+    if ! docker compose--env-file $LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE --file $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME down; then
         ERROR_DOCKER_COMPOSE_STOP=true
     fi
 }

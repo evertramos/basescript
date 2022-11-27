@@ -21,7 +21,7 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Check if the services on a docker-compose exists in docker
+# 1. Check if the services on a docker composeexists in docker
 #
 # You must/might inform the parameters below:
 # 1. The compose file full path string
@@ -41,11 +41,11 @@ docker_compose_check_service_exists()
     LOCAL_QTY_SERVICES=${3:-0}
 
     [[ $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME == "" || $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME == null ]] && \
-    echoerror "You must inform the docker-compose full file path to the function: '${FUNCNAME[0]}'"
+    echoerror "You must inform the docker composefull file path to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" == true ]] && echo "Checking if docker-compose services exists for: '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME/$LOCAL_DOCKER_COMPOSE_FILE_NAME'"
+    [[ "$DEBUG" == true ]] && echo "Checking if docker composeservices exists for: '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME/$LOCAL_DOCKER_COMPOSE_FILE_NAME'"
 
-    LOCAL_RESULTS=$(docker-compose --file "$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME/$LOCAL_DOCKER_COMPOSE_FILE_NAME" ps --quiet | wc -l)
+    LOCAL_RESULTS=$(docker compose--file "$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME/$LOCAL_DOCKER_COMPOSE_FILE_NAME" ps --quiet | wc -l)
 
     # Check results
     if [[ $LOCAL_RESULTS > $LOCAL_QTY_SERVICES ]]; then

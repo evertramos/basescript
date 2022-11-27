@@ -21,13 +21,13 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Update specific string in docker-compose file
+# 1. Update specific string in docker composefile
 #
 # You must/might inform the parameters below:
 # 1. Path where the compose file are located (/path/docker-compose.yml)
 # 2. String that should be REPLACED
 # 3. New String
-# 4. [optional] docker-compose file name (default: docker-compose.yml)
+# 4. [optional] docker composefile name (default: docker-compose.yml)
 #
 #-----------------------------------------------------------------------
 
@@ -46,6 +46,6 @@ docker_compose_replace_string()
     # Check if file exists
     [[ "$DEBUG" == true ]] && echo "Updating in file '$LOCAL_DOCKER_COMPOSE_FULL_FILE_PATH' the string from: '$LOCAL_REPLACE_STRING_FROM' to: '$LOCAL_REPLACE_STRING_TO' - [function: ${FUNCNAME[0]}]"
    
-    # Update the docker-compose file
+    # Update the docker composefile
     file_update_file $LOCAL_DOCKER_COMPOSE_FULL_FILE_PATH $LOCAL_REPLACE_STRING_FROM $LOCAL_REPLACE_STRING_TO
 }

@@ -46,7 +46,7 @@ Usage:
     -s | --source           Folder where the docker-compose.yml for the running site is located
     -d | --destination      Folder where the clone site will be located
     -h | --help             Display this help
-    --no-start              Clone the site but does not start the docker-compose services
+    --no-start              Clone the site but does not start the docker composeservices
                             [WARNING!] Careful when cloning sites with the same URL.
                             It is recommended you ALWAYS USE the --new-url option.
 
