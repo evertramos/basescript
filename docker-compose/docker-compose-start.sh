@@ -21,12 +21,12 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Start the docker composeservice
+# 1. Start the docker compose service
 #
 # You must/might inform the parameters below:
 # 1. Path where the compose file are located (/path/docker-compose.yml)
-# 2. [optional] (default: false) pull docker composeimages before start
-# 3. [optional] (default: docker-compose.yml) docker composefile name
+# 2. [optional] (default: false) pull docker compose images before start
+# 3. [optional] (default: docker-compose.yml) docker compose file name
 # 4. [optional] (default: .env) .env file name
 # 5. [optional] (default: same location in arg. 1) .env file location
 #
@@ -46,13 +46,13 @@ docker_compose_start()
    
     [[ $LOCAL_DOCKER_COMPOSE_PATH == "" || $LOCAL_DOCKER_COMPOSE_PATH == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
-    [[ "$DEBUG" == true ]] && echo "Starting docker composer service for '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME' - [function: ${FUNCNAME[0]}]"
+    [[ "$DEBUG" == true ]] && echo "Starting docker compose service for '$LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME' - [function: ${FUNCNAME[0]}]"
    
     # Pull if set 
-    [[ "$LOCAL_PULL_BEFORE_START" == true ]] && docker compose--env-file $LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE --file $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME pull
+    [[ "$LOCAL_PULL_BEFORE_START" == true ]] && docker compose --env-file $LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE --file $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME pull
 
     # Start service
-    if ! docker compose--env-file $LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE --file $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME up -d; then
+    if ! docker compose --env-file $LOCAL_DOCKER_COMPOSE_ENV_FULL_FILE --file $LOCAL_DOCKER_COMPOSE_FULL_FILE_NAME up -d; then
         ERROR_DOCKER_COMPOSE_START=true
     fi
 }

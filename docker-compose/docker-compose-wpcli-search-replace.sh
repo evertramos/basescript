@@ -21,13 +21,13 @@
 
 #-----------------------------------------------------------------------
 # This function has one main objective:
-# 1. Run wp-cli search and replace function at a docker composefile
+# 1. Run wp-cli search and replace function at a docker compose file
 #
 # You must/might inform the parameters below:
 # 1. Path where the compose file are located (/path/docker-compose.yml)
 # 2. String that should be REPLACED in database
 # 3. New String
-# 4. [optional] docker composefile name (default: docker-compose.yml)
+# 4. [optional] docker compose file name (default: docker-compose.yml)
 #
 #-----------------------------------------------------------------------
 
@@ -46,9 +46,9 @@ docker_compose_wpcli_search_replace()
     # Check if file exists
     [[ "$DEBUG" == true ]] && echo "Updating in file '$LOCAL_DOCKER_COMPOSE_FULL_FILE_PATH' the string from: '$LOCAL_REPLACE_STRING_FROM' to: '$LOCAL_REPLACE_STRING_TO' - [function: ${FUNCNAME[0]}]"
    
-    # Update the docker composefile
+    # Update the docker compose file
     cd $(dirname $LOCAL_DOCKER_COMPOSE_FULL_FILE_PATH) > /dev/null 2>&1
-    if ! docker composerun --rm wpcli search-replace $LOCAL_REPLACE_STRING_FROM $LOCAL_REPLACE_STRING_TO; then
+    if ! docker compose run --rm wpcli search-replace $LOCAL_REPLACE_STRING_FROM $LOCAL_REPLACE_STRING_TO; then
         ERROR_DOCKER_COMPOSE_WPCLI_SEARCH_REPLACE=true
     fi
     cd - > /dev/null 2>&1
