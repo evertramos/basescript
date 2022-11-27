@@ -65,7 +65,7 @@ log()
         LOCAL_RUN_WITH_SUDO="" # Set to empty!
 
         # Check if file exist and users permissions
-        if [[ -f ${LOCAL_LOG_FULL_PATH} && ! -w ${LOCAL_LOG_FULL_PATH} ]] || [[ -d ${LOCAL_LOG_BASE_PATH} && ! -w ${LOCAL_LOG_BASE_PATH} ]]; then
+        if [[ -f ${LOCAL_LOG_FULL_PATH} && ! -w ${LOCAL_LOG_FULL_PATH} ]] || [[ ! -f ${LOCAL_LOG_FULL_PATH} && -d ${LOCAL_LOG_BASE_PATH} && ! -w ${LOCAL_LOG_BASE_PATH} ]]; then
             if [[ ! $(declare -F echoerror) == "" ]]; then
                 BASESCRIPT_LOG_ALL_ACTIONS=false
                 echoerror "You dont have permission to write log at '${LOCAL_LOG_FULL_PATH}' - [${FUNCNAME[0]}]" "${LOCAL_STOP_EXECUTION_ON_ERROR}"
