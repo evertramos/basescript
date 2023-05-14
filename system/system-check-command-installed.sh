@@ -39,9 +39,9 @@ system_check_command_installed()
     [[ "$DEBUG" == true ]] && echo "Checking if command '$LOCAL_COMMAND' is installed."
 
     if [[ ! -x "$(command -v "$LOCAL_COMMAND")" ]]; then
-        COMMAND_IS_INSTALLED=true 
-    else
         COMMAND_IS_INSTALLED=false
+    else
+        COMMAND_IS_INSTALLED=true
     fi
 }
 
