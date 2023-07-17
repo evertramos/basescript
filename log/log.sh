@@ -25,7 +25,7 @@
 #
 # You must/might inform the parameters below:
 # 1. The data what should be logged
-# 2. [optional] (default: ./log) Destination path
+# 2. [optional] (default: . [current folder]) Destination path
 # 3. [optional] (default: basescript.log) Log's file name
 # 4. [optional] (default: +%Y-%m-%d %H:%M:%S) Timestamp log
 # 5. [optional] (default: true) Allow to run with sudo
@@ -48,7 +48,7 @@ log()
       LOCAL_RUN_WITH_SUDO
 
     # Optional arguments
-    LOCAL_LOG_BASE_PATH="${2:-null}" && [[ "$LOCAL_LOG_BASE_PATH" == "null" ]] && LOCAL_LOG_BASE_PATH=${BASESCRIPT_LOG_BASE_PATH:-"./log"}
+    LOCAL_LOG_BASE_PATH="${2:-null}" && [[ "$LOCAL_LOG_BASE_PATH" == "null" ]] && LOCAL_LOG_BASE_PATH=${BASESCRIPT_LOG_BASE_PATH:-"."}
     LOCAL_LOG_NAME="${3:-null}" && [[ "$LOCAL_LOG_NAME" == null ]] && LOCAL_LOG_NAME=${BASESCRIPT_LOG_FILE_NAME:-basescript.log}
     LOCAL_TIMESTAMP_FLAG="${4:-null}" && [[ "$LOCAL_TIMESTAMP_FLAG" == null ]] && LOCAL_TIMESTAMP_FLAG=${BASESCRIPT_LOG_TIMESTAMP_FLAG:-"+%Y-%m-%d %H:%M:%S"}
     LOCAL_ALLOW_RUN_WITH_SUDO="${5:-null}" && [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == null ]] && LOCAL_ALLOW_RUN_WITH_SUDO=${ALLOW_RUN_WITH_SUDO:-false}
