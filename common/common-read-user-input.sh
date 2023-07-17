@@ -31,6 +31,11 @@
 
 common_read_user_input()
 {
+    trap '
+      trap - INT # restore default INT handler
+      kill -s INT "$$"
+    ' INT
+
     local LOCAL_USER_RESPONSE LOCAL_USER_TEXT
     
     LOCAL_USER_TEXT="${1:-Please enter the required information:}"
