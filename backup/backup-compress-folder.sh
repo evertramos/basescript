@@ -106,7 +106,7 @@ backup_compress_folder()
     # Get the last folder name so we can backup with this folder in tar file
     LOCAL_BACKUP_FOLDER_NAME=$(basename $LOCAL_BACKUP_FOLDER_FROM)
 
-    if ! sudo tar -czf "${LOCAL_BACKUP_FOLDER_TO}/${LOCAL_BACKUP_FILE_NAME}" -C "${LOCAL_BACKUP_FOLDER_FROM%//}/../" $LOCAL_BACKUP_FOLDER_NAME; then
+    if ! sudo tar --warning=no-file-changed -czf "${LOCAL_BACKUP_FOLDER_TO}/${LOCAL_BACKUP_FILE_NAME}" -C "${LOCAL_BACKUP_FOLDER_FROM%//}/../" $LOCAL_BACKUP_FOLDER_NAME; then
         BACKUP_COMPRESS_FOLDER_ERROR=true
     else
         BACKUP_COMPRESS_FOLDER_FULLFILE="${LOCAL_BACKUP_FOLDER_TO}/${LOCAL_BACKUP_FILE_NAME}"
