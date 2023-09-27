@@ -35,6 +35,11 @@
 
 confirm_user_action()
 {
+    trap '
+      trap - INT # restore default INT handler
+      kill -s INT "$$"
+    ' INT
+
     local LOCAL_USER_RESPONSE LOCAL_USER_QUESTION LOCAL_KILL_SCRIPT LOCAL_INVERT_DEFAULT
     
     LOCAL_USER_QUESTION="${1:-Are you sure you want to continue?}"

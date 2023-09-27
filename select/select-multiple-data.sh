@@ -31,6 +31,11 @@
 
 select_multiple_data()
 {
+    trap '
+      trap - INT # restore default INT handler
+      kill -s INT "$$"
+    ' INT
+
     GLOBAL_MULTIDATA_SELECT_DATA=(${1})
 
     [[ $GLOBAL_MULTIDATA_SELECT_DATA == ""  || ${#GLOBAL_MULTIDATA_SELECT_DATA[@]} -eq 0 ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
