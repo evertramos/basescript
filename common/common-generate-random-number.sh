@@ -36,8 +36,8 @@ common_generate_random_string()
 
     [[ "$DEBUG" == true ]] && echo "Generating a random string with "$LOCAL_SIZE" characher(s)"
 
-    # bash generate random string alphanumeric string (upper and lowercase) and
-    RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $LOCAL_SIZE | head -n 1)
+    # bash generate random alphanumeric string (lowercase only)
+    RANDOM_STRING=$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w $LOCAL_SIZE | head -n 1)
 
     if [[ "$RANDOM_STRING" == "" ]]; then
         echoerror "Error generating a random string. Please check the function 'common_generate_random_string'."
