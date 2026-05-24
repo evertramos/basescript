@@ -51,10 +51,10 @@ file_update_file()
     [[ $LOCAL_TO_STRING == "" || $LOCAL_TO_STRING == null ]] && echoerror "You must inform the required argument(s) to the function: '${FUNCNAME[0]}'"
 
     # Check if file exists | exit if 4th parameter is set to 'true'
-    [[ ! -f $LOCAL_FULL_FILE_PATH ]] && [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && echoerror "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \n Please inform the correct location and try again (function: ${FUNCNAME[0]})."
+    [[ ! -f "$LOCAL_FULL_FILE_PATH" ]] && [[ "$LOCAL_STOP_EXECUTION_ON_ERROR" == true ]] && echoerror "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \n Please inform the correct location and try again (function: ${FUNCNAME[0]})."
 
     # Stop execution and return error if "$LOCAL_STOP_EXECUTION_ON_ERROR" is false
-    if [[ ! -f $LOCAL_FULL_FILE_PATH ]]; then
+    if [[ ! -f "$LOCAL_FULL_FILE_PATH" ]]; then
         echoerror "We could not find the file '$LOCAL_FULL_FILE_PATH' in your local folder. \n Please inform the correct location and try again (function: ${FUNCNAME[0]})." false
         FILE_UPDATE_FILE_ERROR=true
         return 0
@@ -64,15 +64,19 @@ file_update_file()
     [[ "$DEBUG" == true ]] && echoline "Replace '$LOCAL_FROM_STRING' to '$LOCAL_TO_STRING' in '$LOCAL_FULL_FILE_PATH'."
 
     # Allows 'sudo' to run this function if destination path it's not owned by the current user
-    [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == true ]] && ! system_check_user_folder_owner ${LOCAL_FULL_FILE_PATH%/*} && LOCAL_RUN_WITH_SUDO=sudo
+    [[ "$LOCAL_ALLOW_RUN_WITH_SUDO" == true ]] && ! system_check_user_folder_owner "${LOCAL_FULL_FILE_PATH%/*}" && LOCAL_RUN_WITH_SUDO=sudo
 
-    cd $(dirname $LOCAL_FULL_FILE_PATH) >/dev/null 2>&1
+    local LOCAL_FROM_ESCAPED LOCAL_TO_ESCAPED
+    LOCAL_FROM_ESCAPED=$(printf '%s\n' "$LOCAL_FROM_STRING" | sed 's/[[\.*^$()+?{|]/\\&/g')
+    LOCAL_TO_ESCAPED=$(printf '%s\n' "$LOCAL_TO_STRING" | sed 's/[/&]/\\&/g')
+
+    cd "$(dirname "$LOCAL_FULL_FILE_PATH")" >/dev/null 2>&1
     if [[ "$LOCAL_UPDATE_VARIABLE_VALUE" == true ]]; then
         # To remove dots (.) use the line below
-#        $LOCAL_RUN_WITH_SUDO sed -i "/$LOCAL_FROM_STRING=/c\\$LOCAL_FROM_STRING=${LOCAL_TO_STRING//.}" $LOCAL_FULL_FILE_PATH
-        $LOCAL_RUN_WITH_SUDO sed -i "/$LOCAL_FROM_STRING=/c\\$LOCAL_FROM_STRING=$LOCAL_TO_STRING" $LOCAL_FULL_FILE_PATH
+#        $LOCAL_RUN_WITH_SUDO sed -i "/$LOCAL_FROM_ESCAPED=/c\\$LOCAL_FROM_ESCAPED=${LOCAL_TO_ESCAPED//.}" $LOCAL_FULL_FILE_PATH
+        $LOCAL_RUN_WITH_SUDO sed -i "/$LOCAL_FROM_ESCAPED=/c\\$LOCAL_FROM_ESCAPED=$LOCAL_TO_ESCAPED" "$LOCAL_FULL_FILE_PATH"
     else
-        $LOCAL_RUN_WITH_SUDO sed -i -e "s/$LOCAL_FROM_STRING/$LOCAL_TO_STRING/g" $LOCAL_FULL_FILE_PATH
+        $LOCAL_RUN_WITH_SUDO sed -i -e "s/$LOCAL_FROM_ESCAPED/$LOCAL_TO_ESCAPED/g" "$LOCAL_FULL_FILE_PATH"
     fi
     cd - > /dev/null 2>&1
 }
