@@ -40,7 +40,7 @@
 # ----------------------------------------------------------------------
 system_safe_delete_folder()
 {
-    local LOCAL_SAFE_DELETE_FOLDER LOCAL_ALLOWED_DELETE_BASE_PATH LOCAL_SAFE_DELETE_FOLDER_BASE_PATH
+    local LOCAL_SAFE_DELETE_FOLDER LOCAL_ALLOWED_DELETE_BASE_PATH LOCAL_SAFE_DELETE_FOLDER_BASE_PATH DELETE_USING_SUDO SKIP_ALL_VALIDATION
 
     LOCAL_SAFE_DELETE_FOLDER=${1%/}
     LOCAL_ALLOWED_DELETE_BASE_PATH=${2:-server}
@@ -63,9 +63,9 @@ system_safe_delete_folder()
     [[ "$DEBUG" == true ]] && echowarning "Deleting folder '$LOCAL_SAFE_DELETE_FOLDER'"
 
     if [[ "$DELETE_USING_SUDO" == true ]]; then
-        sudo rm -rf $LOCAL_SAFE_DELETE_FOLDER
+        sudo rm -rf "$LOCAL_SAFE_DELETE_FOLDER"
     else
-        rm -rf $LOCAL_SAFE_DELETE_FOLDER
+        rm -rf "$LOCAL_SAFE_DELETE_FOLDER"
     fi
 
     return 0
